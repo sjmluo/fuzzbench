@@ -8,7 +8,7 @@ trials: 5
 
 # 1 day = 24 * 60 * 60 = 86400
 
-max_total_time: 86400
+max_total_time: 3600
 
 
 
