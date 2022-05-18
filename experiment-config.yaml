@@ -1,6 +1,6 @@
 # The number of trials of a fuzzer-benchmark pair.
 
-trials: 2
+trials: 3
 
 
 
@@ -8,7 +8,7 @@ trials: 2
 
 # 1 day = 24 * 60 * 60 = 86400
 
-max_total_time: 60
+max_total_time: 3600
 
 
 
