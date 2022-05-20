@@ -7,10 +7,10 @@ from fuzzers.aflplusplus import fuzzer as aflplusplus_fuzzer
 
 def build():
     """Build benchmark."""
-#    afl_fuzzer.prepare_build_environment()
-#    os.environ['CC'] = 'clang'
-#    os.environ['CXX'] = 'clang++'
-#    os.environ['FUZZER_LIB'] = '/libQEMU.a'
+    #    afl_fuzzer.prepare_build_environment()
+    #    os.environ['CC'] = 'clang'
+    #    os.environ['CXX'] = 'clang++'
+    #    os.environ['FUZZER_LIB'] = '/libQEMU.a'
     aflplusplus_fuzzer.build('qemu')
 
 
