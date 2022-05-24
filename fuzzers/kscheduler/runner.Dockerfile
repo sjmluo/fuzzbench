@@ -1,0 +1,6 @@
+
+FROM gcr.io/fuzzbench/base-image
+
+
+ENV AFL_USE_MULTI_LEVEL_COV=1
+ENV AFL_USE_HIER_SCHEDULE=1

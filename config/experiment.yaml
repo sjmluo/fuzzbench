@@ -7,8 +7,8 @@ docker_registry: gcr.io/fuzzbench
 experiment: testingaflhier
 experiment_filestore: /tmp/experiment-data
 fuzzers:
-- tortoisefuzz
-git_hash: 8046e70a7dfcfb7d2ebbe1cc341dcb18904a98a0
+- aflhier
+git_hash: 9d2e7a2b6a9134d5d485df5296f7ef66d73a85bb
 local_experiment: true
 max_total_time: 3600
 measurers_cpus: null

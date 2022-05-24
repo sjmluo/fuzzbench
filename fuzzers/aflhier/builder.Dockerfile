@@ -16,3 +16,4 @@ RUN cd /afl && \
     make -C examples/aflpp_driver && \
     cp examples/aflpp_driver/libAFLQemuDriver.a /libAFLDriver.a && \
     cp examples/aflpp_driver/aflpp_qemu_driver_hook.so /
+
