@@ -8,9 +8,10 @@ experiment: testingaflhier
 experiment_filestore: /tmp/experiment-data
 fuzzers:
 - aflhier
-git_hash: 9d2e7a2b6a9134d5d485df5296f7ef66d73a85bb
+- kscheduler
+git_hash: 2a56b4d296b3abaf73c604b03601dd084cbe4485
 local_experiment: true
-max_total_time: 3600
+max_total_time: 86400
 measurers_cpus: null
 no_dictionaries: false
 no_seeds: false
