@@ -4,7 +4,13 @@ from fuzzers import utils
 from fuzzers.afl import fuzzer as afl_fuzzer
 
 def build():
-    afl_fuzzer.prepare_build_environment()
+
+
+    cflags = ['-v -fsanitize-coverage=trace-pc-guard,no-prune -O2 -fno-omit-frame-pointer -gline-tables-only -fsanitize=address,fuzzer-no-link -fsanitize-address-use-after-scope']
+    utils.append_flags('CFLAGS', cflags)
+    utils.append_flags('CXXFLAGS', cflags)
+
+
     os.environ['CC'] = 'wllvm'
     os.environ['CXX'] = 'wllvm++'
     os.environ['LLVM_COMPILER'] = 'clang'
@@ -14,7 +20,7 @@ def build():
 
 def fuzz(input_corpus, output_corpus, target_binary):
     afl_fuzzer.prepare_fuzz_environment(input_corpus)
-    run_afl_fuzz(input_corpus, output_corpus, target_binary, ['-d -m'])
+    run_afl_fuzz(input_corpus, output_corpus, target_binary, ['-d'])
 
 
 def run_afl_fuzz(input_corpus,
