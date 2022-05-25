@@ -2,7 +2,11 @@ ARG parent_image
 FROM $parent_image
 
 RUN apt-get update && \
-    apt-get install -y ninja-build texinfo gcc g++ libstdc++6 g++-multilib binutils
+    apt-get install -y ninja-build texinfo gcc g++ libstdc++6 g++-multilib
+
+RUN apt-get update && \
+    apt-get install -y wget libstdc++-5-dev libtool-bin automake flex bison \
+                       libglib2.0-dev libpixman-1-dev python3-setuptools unzip
 
 RUN git clone https://github.com/Dongdongshe/K-Scheduler.git /afl && \
     cd /afl
