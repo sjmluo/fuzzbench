@@ -1,4 +1,5 @@
 import os
+import shutil
 import subprocess
 
 from fuzzers.aflplusplus import fuzzer as aflplusplus_fuzzer
@@ -8,6 +9,7 @@ def build():
     """Build benchmark."""
     aflplusplus_fuzzer.build('qemu')
 
+    shutil.copy('/afl/afl-fuzz', os.environ['OUT'])
 
 def fuzz(input_corpus, output_corpus, target_binary):
     """Run fuzzer."""
