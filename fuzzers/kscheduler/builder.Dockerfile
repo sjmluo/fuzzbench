@@ -2,7 +2,7 @@ ARG parent_image
 FROM $parent_image
 
 RUN apt-get update && \
-    apt-get install -y ninja-build texinfo gcc g++ libstdc++6 g++-multilib
+    apt-get install -y ninja-build texinfo gcc g++ libstdc++6 g++-multilib binutils
 
 RUN git clone https://github.com/Dongdongshe/K-Scheduler.git /afl && \
     cd /afl
