@@ -1,5 +1,6 @@
 import os
 
+
 from fuzzers import utils
 from fuzzers.afl import fuzzer as afl_fuzzer
 
@@ -32,7 +33,7 @@ def run_afl_fuzz(input_corpus,
     # Spawn the afl fuzzing process.
     print('[run_afl_fuzz] Running target with afl-fuzz')
     command = [
-        './afl-fuzz_kscheduler',
+        'python3 /afl/afl_integration/build_example/gen_dyn_weight.py & /afl/afl_integration/build_example/afl-fuzz_kscheduler',
         '-i',
         input_corpus,
         '-o',
