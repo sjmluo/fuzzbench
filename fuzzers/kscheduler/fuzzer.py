@@ -26,7 +26,7 @@ def fuzz(input_corpus, output_corpus, target_binary):
 
 
 def gen_dyn_weight(target_binary):
-    output_stream = subprocess.DEVNULL if hide_output else None
+    output_stream = subprocess.DEVNULL
 
     subprocess.check_call("llvm-dis {0}.bc && python ./fix_long_fun_name.py {0}.ll && mkdir cfg_out_{0} && cd cfg_out_{0} && opt -dot-cfg ../{0}_afl_asan_fix.ll && for f in $(ls -a |grep '^\.*'|grep dot);do mv $f ${f:1};done && cd .. && python ./gen_graph.py ./{}_afl_asan_fix.ll cfg_out_{}".format(target_binary), stdout=output_stream, stderr=output_stream)
 
