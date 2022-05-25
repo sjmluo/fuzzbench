@@ -21,6 +21,7 @@ def build():
 
 def fuzz(input_corpus, output_corpus, target_binary):
     afl_fuzzer.prepare_fuzz_environment(input_corpus)
+    gen_dyn_weight(target_binary)
     run_afl_fuzz(input_corpus, output_corpus, target_binary, ['-d'])
 
 
