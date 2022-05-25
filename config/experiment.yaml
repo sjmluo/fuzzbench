@@ -9,7 +9,7 @@ experiment_filestore: /tmp/experiment-data
 fuzzers:
 - aflhier
 - kscheduler
-git_hash: 2a56b4d296b3abaf73c604b03601dd084cbe4485
+git_hash: 57643aad80b75dfb0c3b33c615e82e6d52b41b8e
 local_experiment: true
 max_total_time: 86400
 measurers_cpus: null
