@@ -19,8 +19,8 @@ import sys
 import traceback
 
 import google.cloud.logging
-from google.cloud.logging.handlers import CloudLoggingHandler
-# from google.cloud import error_reporting
+from google.cloud.logging.handlers.handlers import CloudLoggingHandler
+from google.cloud import error_reporting
 
 # Disable this check since we have a bunch of non-constant globals in this file.
 # pylint: disable=invalid-name
@@ -49,9 +49,7 @@ def _initialize_cloud_clients():
     logging_handler = CloudLoggingHandler(_log_client)
     logging.getLogger().addHandler(logging_handler)
     global _error_reporting_client
-
-
-#    _error_reporting_client = error_reporting.Client()
+    _error_reporting_client = error_reporting.Client()
 
 
 def initialize(name='fuzzbench', default_extras=None, log_level=logging.INFO):

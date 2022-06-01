@@ -11,6 +11,7 @@ def build():
 
     shutil.copy('/afl/afl-fuzz', os.environ['OUT'])
 
+
 def fuzz(input_corpus, output_corpus, target_binary):
     """Run fuzzer."""
     # Get LLVMFuzzerTestOneInput address.
