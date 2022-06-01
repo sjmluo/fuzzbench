@@ -37,3 +37,8 @@ RUN cd /afl/afl_integration/build_example/ && \
     $CXX -std=c++11 -O2 -c /afl/libfuzzer_integration/llvm_11.0.1/compiler-rt/lib/fuzzer/afl/afl_driver.cpp && \
     ar r afl_llvm_rt_driver.a afl_driver.o afl-llvm-rt.o && \
     export LDFLAGS=/afl/afl_integration/build_example/afl-llvm-rt.o
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 70ae3060846363c1de4afb1d36c8272030690279
