@@ -39,6 +39,8 @@ def build():
                           env=os.environ.copy())
 
     print('==========HERE=============')
+    print('ft:', ft)
+    print(os.system('ls -pl /src/freetype2/'))
     # print(os.system(new_env['FUZZ_TARGET']))
     # print('==============')
     print(os.system('ls -pl /afl/afl_integration/build_example/'))
