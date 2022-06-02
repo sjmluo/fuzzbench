@@ -41,20 +41,20 @@ def build():
     output_stream = None
 
     ft = os.path.join(os.environ['OUT'], fuzz_target)
-    subprocess.check_call(f"extract-bc {ft} -o {fuzz_target}.bc".split(),
+    subprocess.check_call(f"extract-bc {fuzz_target}".split(),
                           stdout=output_stream,
                           stderr=output_stream,
-                          env=os.environ.copy(), cwd=build_dir)
+                          env=os.environ.copy(), cwd=os.environ['OUT'])
 
-    subprocess.check_call(f"/afl/libfuzzer_integration/llvm_11.0.1/build/bin/llvm-dis ./.{fuzz_target}.bc".split(),
+    subprocess.check_call(f"/afl/libfuzzer_integration/llvm_11.0.1/build/bin/llvm-dis ./{fuzz_target}.bc".split(),
         stdout=output_stream,
         stderr=output_stream,
-        env=os.environ.copy(), cwd=build_dir)
+        env=os.environ.copy(), cwd=os.environ['OUT'])
 
-    subprocess.check_call(f"python3 /afl/afl_integration/build_example/fix_long_fun_name.py ./.{fuzz_target}.ll",
+    subprocess.check_call(f"python3 /afl/afl_integration/build_example/fix_long_fun_name.py ./{fuzz_target}.ll",
         stdout=output_stream,
         stderr=output_stream,
-        env=os.environ.copy(), cwd=build_dir, shell=True)
+        env=os.environ.copy(), cwd=os.environ['OUT'], shell=True)
 
 
     os.makedirs(build_dir + f'cfg_out_{fuzz_target}', exist_ok=True)
