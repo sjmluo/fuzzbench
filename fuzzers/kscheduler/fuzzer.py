@@ -86,7 +86,6 @@ def build():
     shutil.copy(f'{build_dir}.{fuzz_target}.o_fix.ll',
                 os.environ['OUT'])
     shutil.copytree(f'{build_dir}cfg_out_{fuzz_target}', os.environ['OUT'])
-    shutil.copy()
     # os.environ['OUT'] += os.pathsep + os.pathsep.join(build_dir) # + os.pathsep + os.pathsep.join('/afl/afl_integration/build_example/')
 
     # print(os.system(f'ls -alp {build_dir}'))
