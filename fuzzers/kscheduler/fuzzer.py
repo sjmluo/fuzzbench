@@ -86,7 +86,7 @@ def build():
     subprocess.check_call(f"python3 /afl/afl_integration/build_example/gen_graph.py ./.{fuzz_target}.o_fix.ll cfg_out_{fuzz_target}".split(),
         stdout=output_stream,
         stderr=output_stream,
-        env=os.environ.copy(), cwd=build_dir)
+        env=os.environ.copy(), cwd=build_dir, shell=True)
 
 
 
