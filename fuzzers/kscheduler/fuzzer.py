@@ -72,7 +72,7 @@ def build():
     #     env=os.environ.copy(), cwd=build_dir + f'cfg_out_{fuzz_target}')
 
 
-    for  filename in enumerate(os.listdir(build_dir + f'cfg_out_{fuzz_target}')):
+    for  filename in os.listdir(build_dir + f'cfg_out_{fuzz_target}'):
         print(filename)
         if filename.endswith('.dot'):
             dst =filename[1:]
