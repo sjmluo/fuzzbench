@@ -32,7 +32,7 @@ def build():
     # new_env = os.environ.copy()
     # print(os.environ['OUT'] )
     # raise
-    # os.environ['OUT'] = build_dir
+    os.environ['OUT'] += os.pathsep + os.pathsep.join(build_dir)
     utils.build_benchmark()
 
 
@@ -87,8 +87,6 @@ def build():
     shutil.copy('/afl/afl_integration/build_example/afl-fuzz_kscheduler',
                 os.environ['OUT'])
     shutil.copy('/afl/afl_integration/build_example/gen_dyn_weight.py',
-                os.environ['OUT'])
-    shutil.copy(f'{build_dir}',
                 os.environ['OUT'])
 
 def fuzz(input_corpus, output_corpus, target_binary):
