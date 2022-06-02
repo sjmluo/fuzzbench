@@ -46,7 +46,7 @@ def build():
                           stderr=output_stream,
                           env=os.environ.copy(), cwd=os.environ['OUT'])
 
-    subprocess.check_call(f"/afl/libfuzzer_integration/llvm_11.0.1/build/bin/llvm-dis ./{fuzz_target}.bc".split(),
+    subprocess.check_call(f"/afl/libfuzzer_integration/llvm_11.0.1/build/bin/llvm-dis ./.{fuzz_target}.bc".split(),
         stdout=output_stream,
         stderr=output_stream,
         env=os.environ.copy(), cwd=os.environ['OUT'])
