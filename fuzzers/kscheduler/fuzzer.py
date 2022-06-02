@@ -72,13 +72,13 @@ def build():
     #     env=os.environ.copy(), cwd=build_dir + f'cfg_out_{fuzz_target}')
 
 
-    from pathlib import Path
+    for  filename in enumerate(os.listdir(build_dir + f'cfg_out_{fuzz_target}')):
+        if filename.endswith('.dot'):
+            dst =filename[1:]
+            src = build_dir + f'cfg_out_{fuzz_target}' + filename 
+            dst = build_dir + f'cfg_out_{fuzz_target}' + dst
 
-    path = Path(build_dir + f'cfg_out_{fuzz_target}')
-
-    for f in path.iterdir():
-        if f.is_file() and f.suffix in ['.dot']:
-            f.rename(f[1:])
+            os.rename(src, dst) 
 
     print('==========HERE=============')
 
