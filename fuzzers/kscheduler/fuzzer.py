@@ -73,6 +73,7 @@ def build():
 
 
     for  filename in enumerate(os.listdir(build_dir + f'cfg_out_{fuzz_target}')):
+        print(filename)
         if filename.endswith('.dot'):
             dst =filename[1:]
             src = build_dir + f'cfg_out_{fuzz_target}' + filename 
