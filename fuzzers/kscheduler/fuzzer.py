@@ -29,7 +29,8 @@ def build():
     # build_dir = '/afl/afl_integration/build_example/out'
     build_dir = f'/src/{prject_name}/'
     os.makedirs(build_dir, exist_ok=True)
-    # new_env = os.environ.copy()
+    new_env = os.environ.copy()
+    new_env['OUT'] = build_dir
     # print(os.environ['OUT'] )
     # raise
     utils.build_benchmark()
@@ -40,21 +41,21 @@ def build():
 
     output_stream = None
 
-    ft = os.path.join(os.environ['OUT'], fuzz_target)
+    ft = os.path.join(build_dir, fuzz_target)
     subprocess.check_call(f"extract-bc {fuzz_target}".split(),
                           stdout=output_stream,
                           stderr=output_stream,
-                          env=os.environ.copy(), cwd=os.environ['OUT'])
+                          env=os.environ.copy(), cwd=build_dir)
 
-    subprocess.check_call(f"/afl/libfuzzer_integration/llvm_11.0.1/build/bin/llvm-dis ./.{fuzz_target}.bc".split(),
+    subprocess.check_call(f"/afl/libfuzzer_integration/llvm_11.0.1/build/bin/llvm-dis ./.{fuzz_target}.o.bc".split(),
         stdout=output_stream,
         stderr=output_stream,
-        env=os.environ.copy(), cwd=os.environ['OUT'])
+        env=os.environ.copy(), cwd=build_dir)
 
-    subprocess.check_call(f"python3 /afl/afl_integration/build_example/fix_long_fun_name.py ./{fuzz_target}.ll",
+    subprocess.check_call(f"python3 /afl/afl_integration/build_example/fix_long_fun_name.py ./.{fuzz_target}.o.ll",
         stdout=output_stream,
         stderr=output_stream,
-        env=os.environ.copy(), cwd=os.environ['OUT'], shell=True)
+        env=os.environ.copy(), cwd=build_dir, shell=True)
 
 
     os.makedirs(build_dir + f'cfg_out_{fuzz_target}', exist_ok=True)
@@ -73,7 +74,7 @@ def build():
             os.rename(src, dst) 
 
     subprocess.check_call(f"python3 /afl/afl_integration/build_example/gen_graph.py ./.{fuzz_target}.o_fix.ll cfg_out_{fuzz_target}",
-        env=os.environ.copy(), cwd=build_dir, shell=True)
+        env=new_env, cwd=build_dir, shell=True)
 
     shutil.copy('/afl/afl_integration/build_example/afl-fuzz_kscheduler',
                 os.environ['OUT'])
