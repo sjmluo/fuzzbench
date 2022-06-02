@@ -83,7 +83,7 @@ def build():
     print(os.system(f'ls -apl {build_dir}'))
     print(os.system('ls -apl /afl/afl_integration/build_example/'))
 
-    subprocess.check_call(f"python3 ./gen_graph.py ./.{fuzz_target}.o_fix.ll cfg_out_{fuzz_target}".split(),
+    subprocess.check_call(f"python3 /afl/afl_integration/build_example/gen_graph.py ./.{fuzz_target}.o_fix.ll cfg_out_{fuzz_target}".split(),
         stdout=output_stream,
         stderr=output_stream,
         env=os.environ.copy(), cwd=build_dir)
@@ -194,5 +194,7 @@ def run_afl_fuzz(input_corpus,
         '2147483647'
     ]
     print('[run_afl_fuzz] Running command: ' + ' '.join(command))
-    output_stream = subprocess.DEVNULL if hide_output else None
+    output_stream = subprocess.DEVNULL if hide_output else 
+    subprocess.Popen('python3 /afl/afl_integration/build_example/gen_dyn_weight.py'.split())
+    subprocess.check_call('echo 0 > signal'.split(), stdout=output_stream, stderr=output_stream)
     subprocess.check_call(command, stdout=output_stream, stderr=output_stream)
