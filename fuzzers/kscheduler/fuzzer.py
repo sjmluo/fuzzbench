@@ -66,6 +66,12 @@ def build():
         stderr=output_stream,
         env=os.environ.copy())
 
+    subprocess.check_call(f"/afl/libfuzzer_integration/llvm_11.0.1/build/bin/llvm-dis ftfuzzer.o.bc".split(),
+        stdout=output_stream,
+        stderr=output_stream,
+        env=os.environ.copy(), cwd=build_dir)
+
+
     # &&   && {build_dir}/../python3 fix_long_fun_name.py {ft}.ll  && mkdir cfg_out_{0} && cd cfg_out_{0} && opt -dot-cfg ../{0}_fix.ll && for f in $(ls -a |grep '^\.*'|grep dot);do mv $f ${{f:1}};done && cd .. && python3 ./gen_graph.py {0}_fix.ll cfg_out_{0}
 
     # gen_dyn_weight(new_env['FUZZ_TARGET'])
