@@ -31,12 +31,17 @@ def build():
     #   new_env['FUZZ_TARGET'] = os.path.join(build_dir, os.path.basename(fuzz_target))
 
     output_stream = subprocess.DEVNULL
+    print('==========HERE=============')
 
     ft = os.path.join(build_dir, fuzz_target)
     subprocess.check_call(f"extract-bc {ft} -o {ft}.bc".split(),
                           stdout=output_stream,
                           stderr=output_stream,
                           env=os.environ.copy())
+
+    print('==========HERE=============')
+
+
 
     print('==========HERE=============')
     print('ft:', ft)
