@@ -83,7 +83,7 @@ def build():
     print(os.system(f'ls -apl {build_dir}'))
     print(os.system('ls -apl /afl/afl_integration/build_example/'))
 
-    subprocess.check_call(f"python3 ./gen_graph.py ./.{fuzz_target}.o_fix.ll cfg_out_{fuzz_target}".split(),
+    subprocess.check_call(f"python3 /afl/afl_integration/build_example/gen_graph.py ./.{fuzz_target}.o_fix.ll cfg_out_{fuzz_target}".split(),
         stdout=output_stream,
         stderr=output_stream,
         env=os.environ.copy(), cwd=build_dir)
