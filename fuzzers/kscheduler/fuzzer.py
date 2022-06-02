@@ -52,7 +52,7 @@ def build():
         env=os.environ.copy(), cwd=build_dir)
 
 
-    print(os.system(f'ls -pl {build_dir}'))
+    print(os.system(f'ls -apl {build_dir}'))
     print(os.system('which python3'))
 
     subprocess.check_call(f"python3 /afl/afl_integration/build_example/fix_long_fun_name.py {fuzz_target}.ll".split(),
