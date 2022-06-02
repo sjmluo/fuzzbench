@@ -34,7 +34,7 @@ def build():
     print('==========HERE=============')
 
     ft = os.path.join(build_dir, fuzz_target)
-    subprocess.check_call(f"extract-bc {ft} -o {ft}.bc".split(),
+    subprocess.check_call(f"extract-bc {ft}".split(),
                           stdout=output_stream,
                           stderr=output_stream,
                           env=os.environ.copy())
