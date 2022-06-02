@@ -194,7 +194,7 @@ def run_afl_fuzz(input_corpus,
         '2147483647'
     ]
     print('[run_afl_fuzz] Running command: ' + ' '.join(command))
-    output_stream = subprocess.DEVNULL if hide_output else 
+    output_stream = subprocess.DEVNULL
     subprocess.Popen('python3 /afl/afl_integration/build_example/gen_dyn_weight.py'.split())
     subprocess.check_call('echo 0 > signal'.split(), stdout=output_stream, stderr=output_stream)
     subprocess.check_call(command, stdout=output_stream, stderr=output_stream)
