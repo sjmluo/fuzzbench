@@ -64,14 +64,6 @@ def build():
         stderr=output_stream,
         env=os.environ.copy(), cwd=build_dir + f'cfg_out_{fuzz_target}')
 
-    # print("for f in $(ls -a |grep '^\\.*'|grep dot);do mv $f ${f:1};done")
-
-    # subprocess.check_call("for f in $(ls -a |grep '^\\.*'|grep dot);do mv $f ${f:1};done",
-    #     stdout=output_stream,
-    #     stderr=output_stream,
-    #     env=os.environ.copy(), cwd=build_dir + f'cfg_out_{fuzz_target}')
-
-
     for  filename in os.listdir(build_dir + f'cfg_out_{fuzz_target}/'):
         print(filename)
         if filename.endswith('.dot'):
@@ -80,6 +72,15 @@ def build():
             dst = build_dir + f'cfg_out_{fuzz_target}/' + dst
 
             os.rename(src, dst) 
+
+    print(os.system(f'ls -apl {build_dir}'))
+
+    subprocess.check_call(f"python3 /afl/afl_integration/build_example/gen_graph.py ./{fuzz_target}_fix.ll cfg_out_{fuzz_target}".split(),
+        stdout=output_stream,
+        stderr=output_stream,
+        env=os.environ.copy(), cwd=build_dir)
+
+
 
     print('==========HERE=============')
 
