@@ -87,7 +87,7 @@ def build():
 
 def fuzz(input_corpus, output_corpus, target_binary):
     afl_fuzzer.prepare_fuzz_environment(input_corpus)
-    run_afl_fuzz(input_corpus, output_corpus, target_binary, ['Q', '-c0'])
+    run_afl_fuzz(input_corpus, output_corpus, target_binary, ['-Q', '-c0'])
 
 
 def run_afl_fuzz(input_corpus,
