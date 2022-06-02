@@ -106,11 +106,11 @@ def run_afl_fuzz(input_corpus,
     # Spawn the afl fuzzing process.
     print('[run_afl_fuzz] Running target with afl-fuzz')
     output_stream = subprocess.DEVNULL if hide_output else None
-    subprocess.check_call(f"python3 ./gen_graph.py ./.{target_binary}.o_fix.ll cfg_out_{target_binary}".split(),
+    subprocess.check_call(f"python3 ./gen_graph.py ./.{target_binary}.o_fix.ll cfg_out_{target_binary}",
         stdout=output_stream,
         stderr=output_stream,
         shell=True)
-    subprocess.Popen('python3 ./gen_dyn_weight.py'.split(), shell=True)
+    subprocess.Popen('python3 ./gen_dyn_weight.py', shell=True)
     subprocess.check_call('echo 0 > signal'.split(), stdout=output_stream, stderr=output_stream)
     command = [
         './afl-fuzz_kscheduler',
