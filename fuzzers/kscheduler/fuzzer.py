@@ -30,6 +30,7 @@ def build():
     build_dir = f'/src/{prject_name}/'
     os.makedirs(build_dir, exist_ok=True)
     # new_env = os.environ.copy()
+    os.environ['OUT'] += os.pathsep + os.pathsep.join(build_dir) 
     # print(os.environ['OUT'] )
     # raise
     utils.build_benchmark()
