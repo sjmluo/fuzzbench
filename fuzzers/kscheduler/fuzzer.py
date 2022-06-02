@@ -148,6 +148,7 @@ def run_afl_fuzz(input_corpus,
         '2147483647'
     ]
     print('[run_afl_fuzz] Running command: ' + ' '.join(command))
+    print(os.system('ls -alp .'))
     output_stream = subprocess.DEVNULL
     subprocess.Popen('python3 ./gen_dyn_weight.py'.split(), shell=True)
     subprocess.check_call('echo 0 > signal'.split(), stdout=output_stream, stderr=output_stream)
