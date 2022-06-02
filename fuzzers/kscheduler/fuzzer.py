@@ -55,9 +55,7 @@ def build():
     print('==========HERE=============')
 
     src_target = os.path.join('/src/', fuzz_target)
-    subprocess.check_call(
-        f"/afl/libfuzzer_integration/llvm_11.0.1/build/bin/llvm-dis {ft}.bc".
-        split(),
+    subprocess.check_call(f"/afl/libfuzzer_integration/llvm_11.0.1/build/bin/llvm-dis {ft}.bc".split(),
         stdout=output_stream,
         stderr=output_stream,
         env=os.environ.copy())
