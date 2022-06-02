@@ -73,7 +73,7 @@ def build():
 
 
     print('==========HERE=============')
-    print(os.system(f'ls -pl {build_dir}'))
+    print(os.system(f'ls -apl {build_dir}'))
     # print('ft:', ft)
     # print(os.system('find / -type f -name "*.bc"'))
     # print(os.system('ls -pl /src/freetype2/'))
