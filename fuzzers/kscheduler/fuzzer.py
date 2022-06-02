@@ -78,6 +78,7 @@ def build():
         stderr=output_stream,
         env=os.environ.copy(), cwd=build_dir)
 
+    print(os.system(f'ls -apl build_dir + cfg_out_{fuzz_target}/'))
     print(os.system(f'ls -apl {build_dir}'))
     print(os.system('ls -apl /afl/afl_integration/build_example/'))
 
