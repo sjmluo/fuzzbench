@@ -65,7 +65,6 @@ def build():
         env=os.environ.copy(), cwd=build_dir + f'cfg_out_{fuzz_target}')
 
     for  filename in os.listdir(build_dir + f'cfg_out_{fuzz_target}/'):
-        print(filename)
         if filename.endswith('.dot'):
             dst =filename[1:]
             src = build_dir + f'cfg_out_{fuzz_target}/' + filename 
@@ -73,10 +72,10 @@ def build():
 
             os.rename(src, dst) 
 
-    subprocess.check_call(f"cp /afl/afl_integration/build_example/gen_graph.py ./gen_graph.py".split(),
-        stdout=output_stream,
-        stderr=output_stream,
-        env=os.environ.copy(), cwd=build_dir)
+    # subprocess.check_call(f"cp /afl/afl_integration/build_example/gen_graph.py ./gen_graph.py".split(),
+    #     stdout=output_stream,
+    #     stderr=output_stream,
+    #     env=os.environ.copy(), cwd=build_dir)
 
     print('this')
     print(os.system('ls -apl {}'.format(build_dir + f'cfg_out_{fuzz_target}/')))
@@ -84,7 +83,7 @@ def build():
     print(os.system(f'ls -apl {build_dir}'))
     print(os.system('ls -apl /afl/afl_integration/build_example/'))
 
-    subprocess.check_call(f"python3 ./gen_graph.py ./{fuzz_target}.o_fix.ll cfg_out_{fuzz_target}".split(),
+    subprocess.check_call(f"python3 ./gen_graph.py ./.{fuzz_target}.o_fix.ll cfg_out_{fuzz_target}".split(),
         stdout=output_stream,
         stderr=output_stream,
         env=os.environ.copy(), cwd=build_dir)
