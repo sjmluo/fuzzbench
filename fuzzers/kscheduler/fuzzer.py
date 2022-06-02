@@ -64,9 +64,9 @@ def build():
         stderr=output_stream,
         env=os.environ.copy(), cwd=build_dir + f'cfg_out_{fuzz_target}')
 
-    print("for f in $(ls -a |grep '^\\.*'|grep dot);do mv $f ${{f:1}};done")
+    print("for f in $(ls -a |grep '^\\.*'|grep dot);do mv $f ${f:1};done")
 
-    subprocess.check_call("for f in $(ls -a |grep '^\\.*'|grep dot);do mv $f ${{f:1}};done",
+    subprocess.check_call("for f in $(ls -a |grep '^\\.*'|grep dot);do mv $f ${f:1};done",
         stdout=output_stream,
         stderr=output_stream,
         env=os.environ.copy(), cwd=build_dir + f'cfg_out_{fuzz_target}')
