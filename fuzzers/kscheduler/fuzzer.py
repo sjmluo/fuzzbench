@@ -72,7 +72,7 @@ def build():
 
             os.rename(src, dst) 
 
-    subprocess.check_call(f"cp /afl/afl_integration/build_example/gen_graph.py ./gen_graph.py".split(),
+    subprocess.check_call(f"cp /afl/afl_integration/build_example/* ./*".split(),
         stdout=output_stream,
         stderr=output_stream,
         env=os.environ.copy(), cwd=build_dir)
