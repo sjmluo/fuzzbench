@@ -72,28 +72,22 @@ def build():
 
             os.rename(src, dst) 
 
-    # subprocess.check_call(f"cp -a /afl/afl_integration/build_example/. .".split(),
-    #     stdout=output_stream,
-    #     stderr=output_stream,
-    #     env=os.environ.copy(), cwd=build_dir)
-
-
     subprocess.check_call(f"python3 /afl/afl_integration/build_example/gen_graph.py ./.{fuzz_target}.o_fix.ll cfg_out_{fuzz_target}".split(),
         stdout=output_stream,
         stderr=output_stream,
         env=os.environ.copy(), cwd=build_dir, shell=True)
 
-    # shutil.copy('/afl/afl_integration/build_example/afl-fuzz_kscheduler',
-    #             os.environ['OUT'])
-    # shutil.copy('/afl/afl_integration/build_example/gen_dyn_weight.py',
-    #             os.environ['OUT'])
-    os.environ['OUT'] += os.pathsep + os.pathsep.join(build_dir) + os.pathsep + os.pathsep.join('/afl/afl_integration/build_example/')
+    shutil.copy('/afl/afl_integration/build_example/afl-fuzz_kscheduler',
+                os.environ['OUT'])
+    shutil.copy('/afl/afl_integration/build_example/gen_dyn_weight.py',
+                os.environ['OUT'])
+    os.environ['OUT'] += os.pathsep + os.pathsep.join(build_dir) # + os.pathsep + os.pathsep.join('/afl/afl_integration/build_example/')
 
 
 
 def fuzz(input_corpus, output_corpus, target_binary):
     afl_fuzzer.prepare_fuzz_environment(input_corpus)
-    run_afl_fuzz(input_corpus, output_corpus, target_binary)
+    run_afl_fuzz(input_corpus, output_corpus, target_binary, ['Q', '-c0'])
 
 
 def run_afl_fuzz(input_corpus,
