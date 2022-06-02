@@ -38,7 +38,6 @@ def build():
     #   new_env['FUZZ_TARGET'] = os.path.join(build_dir, os.path.basename(fuzz_target))
 
     output_stream = subprocess.DEVNULL
-    print('==========HERE=============')
 
     ft = os.path.join(build_dir, fuzz_target)
     subprocess.check_call(f"extract-bc {fuzz_target}".split(),
@@ -72,61 +71,16 @@ def build():
 
             os.rename(src, dst) 
 
-    subprocess.check_call(f"cp -a /afl/afl_integration/build_example/. .".split(),
-        stdout=output_stream,
-        stderr=output_stream,
-        env=os.environ.copy(), cwd=build_dir)
+    # subprocess.check_call(f"cp -a /afl/afl_integration/build_example/. .".split(),
+    #     stdout=output_stream,
+    #     stderr=output_stream,
+    #     env=os.environ.copy(), cwd=build_dir)
 
-    print('this')
-    print(os.system('ls -apl {}'.format(build_dir + f'cfg_out_{fuzz_target}/')))
-    print('this')
-    print(os.system(f'ls -apl {build_dir}'))
-    print(os.system('ls -apl /afl/afl_integration/build_example/'))
 
     subprocess.check_call(f"python3 /afl/afl_integration/build_example/gen_graph.py ./.{fuzz_target}.o_fix.ll cfg_out_{fuzz_target}".split(),
         stdout=output_stream,
         stderr=output_stream,
         env=os.environ.copy(), cwd=build_dir, shell=True)
-
-
-
-    print('==========HERE=============')
-
-
-
-    print('==========HERE=============')
-    print(os.system(f'ls -apl {build_dir}'))
-    print(os.system('which python3'))
-
-    # print('ft:', ft)
-    # print(os.system('find / -type f -name "*.bc"'))
-    # print(os.system('ls -pl /src/freetype2/'))
-    # print(os.system(new_env['FUZZ_TARGET']))
-    # print('==============')
-    # print(os.system('ls -pl /afl/afl_integration/build_example/'))
-    # print(os.system('ls -pl /afl/afl_integration/build_example/out'))
-    # print(os.system('ls -pl $OUT'))
-    # print(os.system('echo $OUT'))
-    # print(os.system('ls -pl $OUT'))
-    # print(os.system('ls -pl /afl/libfuzzer_integration/llvm_11.0.1/build/bin/'))
-    # print('{0}'.format(new_env['FUZZ_TARGET']))
-    # os.system("chmod 777 $OUT")
-    # print(os.system('ls -pl /src/freetype2/'))
-    # print(os.system('pwd'))
-
-    print('==========HERE=============')
-
-    # subprocess.check_call(f"/afl/libfuzzer_integration/llvm_11.0.1/build/bin/llvm-dis /src/freetype2/.ftfuzzer.o.bc".split(),
-    #     stdout=output_stream,
-    #     stderr=output_stream,
-    #     env=os.environ.copy())
-
-
-
-
-    # &&   && {build_dir}/../python3 fix_long_fun_name.py {ft}.ll  && mkdir cfg_out_{0} && cd cfg_out_{0} && opt -dot-cfg ../{0}_fix.ll && for f in $(ls -a |grep '^\.*'|grep dot);do mv $f ${{f:1}};done && cd .. && python3 ./gen_graph.py {0}_fix.ll cfg_out_{0}
-
-    # gen_dyn_weight(new_env['FUZZ_TARGET'])
 
     shutil.copy('/afl/afl_integration/build_example/afl-fuzz_kscheduler',
                 os.environ['OUT'])
@@ -195,6 +149,6 @@ def run_afl_fuzz(input_corpus,
     ]
     print('[run_afl_fuzz] Running command: ' + ' '.join(command))
     output_stream = subprocess.DEVNULL
-    subprocess.Popen('python3 /afl/afl_integration/build_example/gen_dyn_weight.py'.split())
+    subprocess.Popen('python3 ./gen_dyn_weight.py'.split(), shell=True)
     subprocess.check_call('echo 0 > signal'.split(), stdout=output_stream, stderr=output_stream)
     subprocess.check_call(command, stdout=output_stream, stderr=output_stream)
