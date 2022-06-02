@@ -45,7 +45,7 @@ def build():
 
     print('==========HERE=============')
     print('ft:', ft)
-    print(os.system('find / -type f -name "*ftfuzzer.bc"'))
+    print(os.system('find / -type f -name "*.bc"'))
     # print(os.system('ls -pl /src/freetype2/'))
     # print(os.system(new_env['FUZZ_TARGET']))
     # print('==============')
