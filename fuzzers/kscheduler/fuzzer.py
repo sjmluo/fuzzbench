@@ -83,11 +83,11 @@ def build():
         stderr=output_stream,
         env=os.environ.copy(), cwd=build_dir, shell=True)
 
-    shutil.copy('/afl/afl_integration/build_example/afl-fuzz_kscheduler',
-                os.environ['OUT'])
-    shutil.copy('/afl/afl_integration/build_example/gen_dyn_weight.py',
-                os.environ['OUT'])
-    os.environ['OUT'] += os.pathsep + os.pathsep.join(build_dir)
+    # shutil.copy('/afl/afl_integration/build_example/afl-fuzz_kscheduler',
+    #             os.environ['OUT'])
+    # shutil.copy('/afl/afl_integration/build_example/gen_dyn_weight.py',
+    #             os.environ['OUT'])
+    os.environ['OUT'] += os.pathsep + os.pathsep.join(build_dir) + os.pathsep + os.pathsep.join('/afl/afl_integration/build_example/')
 
 
 
