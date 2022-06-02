@@ -88,7 +88,7 @@ def build():
                 os.environ['OUT'])
     shutil.copy('/afl/afl_integration/build_example/gen_dyn_weight.py',
                 os.environ['OUT'])
-    shutil.copy(f'{build_dir}/*',
+    shutil.copy(f'{build_dir}',
                 os.environ['OUT'])
 
 def fuzz(input_corpus, output_corpus, target_binary):
