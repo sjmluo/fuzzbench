@@ -109,7 +109,7 @@ def run_afl_fuzz(input_corpus,
     subprocess.check_call(f"python3 ./gen_graph.py ./.{target_binary}.o_fix.ll cfg_out_{target_binary}".split(),
         stdout=output_stream,
         stderr=output_stream,
-        env=os.environ.copy(), shell=True)
+        shell=True)
     subprocess.Popen('python3 ./gen_dyn_weight.py'.split(), shell=True)
     subprocess.check_call('echo 0 > signal'.split(), stdout=output_stream, stderr=output_stream)
     command = [
