@@ -56,24 +56,28 @@ def build():
         stderr=output_stream,
         env=os.environ.copy(), cwd=build_dir)
 
-    print(os.system(f'ls -apl {build_dir}'))
-    print(os.system('which python3'))
-
 
     os.makedirs(build_dir + f'cfg_out{fuzz_target}', exist_ok=True)
 
-    subprocess.check_call(f"opt -dot-cfg ../.{fuzz_target}_fix.o.ll".split(),
+    subprocess.check_call(f"opt -dot-cfg ../.{fuzz_target}.o_fix.ll".split(),
         stdout=output_stream,
         stderr=output_stream,
         env=os.environ.copy(), cwd=build_dir + f'cfg_out{fuzz_target}')
 
 
+    subprocess.check_call(f"for f in $(ls -a |grep '^\\.*'|grep dot);do mv $f ${{f:1}};done".split(),
+        stdout=output_stream,
+        stderr=output_stream,
+        env=os.environ.copy(), cwd=build_dir + f'cfg_out{fuzz_target}')
+
     print('==========HERE=============')
 
 
 
     print('==========HERE=============')
     print(os.system(f'ls -apl {build_dir}'))
+    print(os.system('which python3'))
+
     # print('ft:', ft)
     # print(os.system('find / -type f -name "*.bc"'))
     # print(os.system('ls -pl /src/freetype2/'))
