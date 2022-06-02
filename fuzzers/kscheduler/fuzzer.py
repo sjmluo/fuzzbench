@@ -77,7 +77,7 @@ def build():
     path = Path(build_dir + f'cfg_out_{fuzz_target}')
 
     for f in path.iterdir():
-        if f.is_file() and f.suffix in ['.txt']:
+        if f.is_file() and f.suffix in ['.dot']:
             f.rename(f[1:])
 
     print('==========HERE=============')
