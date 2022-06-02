@@ -38,7 +38,7 @@ def build():
     # if fuzz_target:
     #   new_env['FUZZ_TARGET'] = os.path.join(build_dir, os.path.basename(fuzz_target))
 
-    output_stream = subprocess.DEVNULL
+    output_stream = None
 
     ft = os.path.join(build_dir, fuzz_target)
     subprocess.check_call(f"extract-bc {fuzz_target}".split(),
@@ -109,7 +109,7 @@ def run_afl_fuzz(input_corpus,
     subprocess.check_call(f"python3 ./gen_graph.py ./.{target_binary}.o_fix.ll cfg_out_{target_binary}".split(),
         stdout=output_stream,
         stderr=output_stream,
-        env=os.environ.copy(), cwd=build_dir, shell=True)
+        env=os.environ.copy(), shell=True)
     subprocess.Popen('python3 ./gen_dyn_weight.py'.split(), shell=True)
     subprocess.check_call('echo 0 > signal'.split(), stdout=output_stream, stderr=output_stream)
     command = [
