@@ -51,10 +51,10 @@ def build():
         stderr=output_stream,
         env=os.environ.copy(), cwd=build_dir)
 
-    subprocess.check_call(f"python3 /afl/afl_integration/build_example/fix_long_fun_name.py ./.{fuzz_target}.o.ll".split(),
+    subprocess.check_call(f"python3 /afl/afl_integration/build_example/fix_long_fun_name.py ./.{fuzz_target}.o.ll",
         stdout=output_stream,
         stderr=output_stream,
-        env=os.environ.copy(), cwd=build_dir)
+        env=os.environ.copy(), cwd=build_dir, shell=True)
 
 
     os.makedirs(build_dir + f'cfg_out_{fuzz_target}', exist_ok=True)
@@ -72,7 +72,7 @@ def build():
 
             os.rename(src, dst) 
 
-    subprocess.check_call(f"python3 /afl/afl_integration/build_example/gen_graph.py ./.{fuzz_target}.o.ll cfg_out_{fuzz_target}",
+    subprocess.check_call(f"python3 /afl/afl_integration/build_example/gen_graph.py ./.{fuzz_target}.o_fix.ll cfg_out_{fuzz_target}",
         env=os.environ.copy(), cwd=build_dir, shell=True)
 
     shutil.copy('/afl/afl_integration/build_example/afl-fuzz_kscheduler',
