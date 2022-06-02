@@ -39,7 +39,7 @@ def build():
                           env=os.environ.copy())
 
     print('==========HERE=============')
-    # print('ft:', ft)
+    print('ft:', ft)
     print(os.system('find / -type f -name "*ftfuzzer.bc"'))
     # print(os.system('ls -pl /src/freetype2/'))
     # print(os.system(new_env['FUZZ_TARGET']))
@@ -52,7 +52,7 @@ def build():
     # print(os.system('ls -pl /afl/libfuzzer_integration/llvm_11.0.1/build/bin/'))
     # print('{0}'.format(new_env['FUZZ_TARGET']))
     # os.system("chmod 777 $OUT")
-    print(os.system('ls -pl /src/freetype2/'))
+    # print(os.system('ls -pl /src/freetype2/'))
     # print(os.system('pwd'))
 
     print('==========HERE=============')
