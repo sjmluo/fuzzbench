@@ -86,8 +86,6 @@ def build():
                 os.environ['OUT'])
     shutil.copy('/afl/afl_integration/build_example/gen_dyn_weight.py',
                 os.environ['OUT'])
-    shutil.copy(f'{build_dir}{fuzz_target}',
-                os.environ['OUT'])
 
 def fuzz(input_corpus, output_corpus, target_binary):
     afl_fuzzer.prepare_fuzz_environment(input_corpus)
@@ -117,9 +115,8 @@ def run_afl_fuzz(input_corpus,
     """Run afl-fuzz."""
     # Spawn the afl fuzzing process.
     print('[run_afl_fuzz] Running target with afl-fuzz')
-    subprocess.check_call('python3 ./gen_dyn_weight.py &',
-                          stdout=output_stream,
-                          stderr=output_stream)
+    subprocess.Popen('python3 ./gen_dyn_weight.py'.split(), shell=True)
+    subprocess.Popen('echo 0 > signal'.split(), stdout=output_stream, stderr=output_stream)
     command = [
         './afl-fuzz_kscheduler',
         '-i',
@@ -151,6 +148,5 @@ def run_afl_fuzz(input_corpus,
     print('[run_afl_fuzz] Running command: ' + ' '.join(command))
     print(os.system('ls -alp .'))
     output_stream = subprocess.DEVNULL
-    subprocess.Popen('python3 ./gen_dyn_weight.py'.split(), shell=True)
-    subprocess.check_call('echo 0 > signal'.split(), stdout=output_stream, stderr=output_stream)
     subprocess.check_call(command, stdout=output_stream, stderr=output_stream)
+
