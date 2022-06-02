@@ -17,8 +17,7 @@ def build():
     os.environ['CC'] = 'wllvm'
     os.environ['CXX'] = 'wllvm++'
     os.environ['LLVM_COMPILER'] = 'clang'
-    os.environ[
-        'FUZZER_LIB'] = '/afl/afl_integration/build_example/afl_llvm_rt_driver.a'
+    os.environ['FUZZER_LIB'] = '/afl/afl_integration/build_example/afl_llvm_rt_driver.a'
 
     build_dir = '/afl/afl_integration/build_example/out'
     os.makedirs(build_dir, exist_ok=True)
@@ -34,10 +33,10 @@ def build():
     print('==========HERE=============')
 
     ft = os.path.join(build_dir, fuzz_target)
-    subprocess.check_call(f"extract-bc {ft}".split(),
+    subprocess.check_call(f"extract-bc {fuzz_target}".split(),
                           stdout=output_stream,
                           stderr=output_stream,
-                          env=os.environ.copy())
+                          env=os.environ.copy(), cwd=build_dir)
 
     print('==========HERE=============')
 
