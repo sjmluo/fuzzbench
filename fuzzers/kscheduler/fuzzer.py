@@ -19,13 +19,17 @@ def build():
     os.environ['LLVM_COMPILER'] = 'clang'
     os.environ['FUZZER_LIB'] = '/afl/afl_integration/build_example/afl_llvm_rt_driver.a'
 
-    build_dir = '/afl/afl_integration/build_example/out'
+    fuzz_target = os.getenv('FUZZ_TARGET')
+    prject_name = os.getenv('PROJECT')
+
+    # build_dir = '/afl/afl_integration/build_example/out'
+    build_dir = f'/src/{prject_name}/'
     os.makedirs(build_dir, exist_ok=True)
     # new_env = os.environ.copy()
     os.environ['OUT'] = build_dir
     utils.build_benchmark()
 
-    fuzz_target = os.getenv('FUZZ_TARGET')
+
     # if fuzz_target:
     #   new_env['FUZZ_TARGET'] = os.path.join(build_dir, os.path.basename(fuzz_target))
 
@@ -61,12 +65,12 @@ def build():
 
     print('==========HERE=============')
 
-    subprocess.check_call(f"/afl/libfuzzer_integration/llvm_11.0.1/build/bin/llvm-dis /src/freetype2/.ftfuzzer.o.bc".split(),
-        stdout=output_stream,
-        stderr=output_stream,
-        env=os.environ.copy())
+    # subprocess.check_call(f"/afl/libfuzzer_integration/llvm_11.0.1/build/bin/llvm-dis /src/freetype2/.ftfuzzer.o.bc".split(),
+    #     stdout=output_stream,
+    #     stderr=output_stream,
+    #     env=os.environ.copy())
 
-    subprocess.check_call(f"/afl/libfuzzer_integration/llvm_11.0.1/build/bin/llvm-dis ftfuzzer.o.bc".split(),
+    subprocess.check_call(f"/afl/libfuzzer_integration/llvm_11.0.1/build/bin/llvm-dis {fuzz_target}.o.bc".split(),
         stdout=output_stream,
         stderr=output_stream,
         env=os.environ.copy(), cwd=build_dir)
