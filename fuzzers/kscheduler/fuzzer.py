@@ -106,7 +106,7 @@ def run_afl_fuzz(input_corpus,
     print('[run_afl_fuzz] Running target with afl-fuzz')
     print(os.system('ls -alp .'))
     subprocess.Popen('python3 ./gen_dyn_weight.py'.split(), shell=True)
-    subprocess.Popen('echo 0 > signal'.split(), stdout=output_stream, stderr=output_stream)
+    subprocess.Popen('echo 0 > signal'.split())
     command = [
         './afl-fuzz_kscheduler',
         '-i',
@@ -136,7 +136,6 @@ def run_afl_fuzz(input_corpus,
         '2147483647'
     ]
     print('[run_afl_fuzz] Running command: ' + ' '.join(command))
-    print(os.system('ls -alp .'))
     output_stream = subprocess.DEVNULL
     subprocess.check_call(command, stdout=output_stream, stderr=output_stream)
 
