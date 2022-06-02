@@ -57,18 +57,19 @@ def build():
         env=os.environ.copy(), cwd=build_dir)
 
 
-    os.makedirs(build_dir + f'cfg_out{fuzz_target}', exist_ok=True)
+    os.makedirs(build_dir + f'cfg_out_{fuzz_target}', exist_ok=True)
 
     subprocess.check_call(f"opt -dot-cfg ../.{fuzz_target}.o_fix.ll".split(),
         stdout=output_stream,
         stderr=output_stream,
-        env=os.environ.copy(), cwd=build_dir + f'cfg_out{fuzz_target}')
+        env=os.environ.copy(), cwd=build_dir + f'cfg_out_{fuzz_target}')
 
+    print("for f in $(ls -a |grep '^\\.*'|grep dot);do mv $f ${{f:1}};done")
 
     subprocess.check_call("for f in $(ls -a |grep '^\\.*'|grep dot);do mv $f ${{f:1}};done",
         stdout=output_stream,
         stderr=output_stream,
-        env=os.environ.copy(), cwd=build_dir + f'cfg_out{fuzz_target}')
+        env=os.environ.copy(), cwd=build_dir + f'cfg_out_{fuzz_target}')
 
     print('==========HERE=============')
 
