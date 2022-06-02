@@ -30,6 +30,8 @@ def build():
     build_dir = f'/src/{prject_name}/'
     os.makedirs(build_dir, exist_ok=True)
     # new_env = os.environ.copy()
+    print(os.environ['OUT'] )
+    raise
     os.environ['OUT'] = build_dir
     utils.build_benchmark()
 
@@ -86,10 +88,6 @@ def build():
                 os.environ['OUT'])
     shutil.copy('/afl/afl_integration/build_example/gen_dyn_weight.py',
                 os.environ['OUT'])
-
-    print(os.system('ls -alp $OUT'))
-    raise
-
 
 
 def fuzz(input_corpus, output_corpus, target_binary):
