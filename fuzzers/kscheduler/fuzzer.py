@@ -88,6 +88,7 @@ def build():
                 os.environ['OUT'])
 
     print(os.system('ls -alp $OUT'))
+    raise
 
 
 
