@@ -74,7 +74,7 @@ def build():
 
     from pathlib import Path
 
-    path = Path('./dir')
+    path = Path(build_dir + f'cfg_out_{fuzz_target}')
 
     for f in path.iterdir():
         if f.is_file() and f.suffix in ['.txt']:
