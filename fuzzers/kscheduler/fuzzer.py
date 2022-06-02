@@ -84,6 +84,7 @@ def build():
     os.environ['OUT'] += os.pathsep + os.pathsep.join(build_dir) # + os.pathsep + os.pathsep.join('/afl/afl_integration/build_example/')
 
     print(os.system(f'ls -alp {build_dir}'))
+    print(os.system(f'ls -alp {build_dir}/cfg_out_{fuzz_target}'))
     raise
 
 def fuzz(input_corpus, output_corpus, target_binary):
