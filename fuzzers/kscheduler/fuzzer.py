@@ -115,6 +115,7 @@ def run_afl_fuzz(input_corpus,
     """Run afl-fuzz."""
     # Spawn the afl fuzzing process.
     print('[run_afl_fuzz] Running target with afl-fuzz')
+    print(os.system('ls -alp .'))
     subprocess.Popen('python3 ./gen_dyn_weight.py'.split(), shell=True)
     subprocess.Popen('echo 0 > signal'.split(), stdout=output_stream, stderr=output_stream)
     command = [
