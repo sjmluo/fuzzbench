@@ -63,7 +63,7 @@ def build():
 
 
     print('2')
-    subprocess.check_call(f"/bin/bash -ex opt -dot-cfg ../.{fuzz_target}.o_fix.ll".split(),
+    subprocess.check_call(f"opt -dot-cfg ../.{fuzz_target}.o.ll".split(),
         stdout=output_stream,
         stderr=output_stream,
         env=os.environ.copy(), cwd=build_dir + f'cfg_out_{fuzz_target}')
