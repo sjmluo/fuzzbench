@@ -63,7 +63,7 @@ def build():
 
 
     print('2')
-    subprocess.check_call(f"/bin/sh -dot-cfg ../.{fuzz_target}.o_fix.ll".split(),
+    subprocess.check_call(f"/bin/sh opt -dot-cfg ../.{fuzz_target}.o_fix.ll".split(),
         stdout=output_stream,
         stderr=output_stream,
         env=os.environ.copy(), cwd=build_dir + f'cfg_out_{fuzz_target}')
@@ -80,6 +80,7 @@ def build():
             os.rename(src, dst) 
     print('4')
     print(os.listdir(build_dir + f'cfg_out_{fuzz_target}/'))
+    raise
     print('5')
     subprocess.check_call(f'python3 /afl/afl_integration/build_example/gen_graph.py ./.{fuzz_target}.o_fix.ll cfg_out_{fuzz_target}',
         env=new_env, cwd=build_dir, shell=True)
