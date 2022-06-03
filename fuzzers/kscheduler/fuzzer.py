@@ -63,10 +63,10 @@ def build():
 
 
     print('2')
-    subprocess.check_call(f"/afl/libfuzzer_integration/llvm_11.0.1/build/bin/opt -debug -dot-cfg ../.{fuzz_target}.o_fix.ll".split(),
+    subprocess.check_call(f"/afl/libfuzzer_integration/llvm_11.0.1/build/bin/opt -dot-cfg ../.{fuzz_target}.o_fix.ll",
         stdout=output_stream,
         stderr=output_stream,
-        env=os.environ.copy(), cwd=build_dir + f'cfg_out_{fuzz_target}')
+        env=os.environ.copy(), cwd=build_dir + f'cfg_out_{fuzz_target}', shell=True)
 
     print('3')
 
