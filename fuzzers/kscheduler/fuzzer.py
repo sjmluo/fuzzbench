@@ -74,6 +74,8 @@ def build():
 
             os.rename(src, dst) 
 
+    print(os.listdir(build_dir + f'cfg_out_{fuzz_target}/'))
+    raise
     subprocess.check_call(shlex.quote(f'/bin/bash -ex python3 /afl/afl_integration/build_example/gen_graph.py ./.{fuzz_target}.o_fix.ll cfg_out_{fuzz_target}'),
         env=new_env, cwd=build_dir, shell=True)
 
