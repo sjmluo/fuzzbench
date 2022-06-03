@@ -75,6 +75,7 @@ def build():
             dst = build_dir + f'cfg_out_{fuzz_target}/' + dst
 
             os.rename(src, dst) 
+    raise
     print('3')
     print(os.listdir(build_dir + f'cfg_out_{fuzz_target}/'))
     raise
