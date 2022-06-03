@@ -58,9 +58,11 @@ def build():
         stderr=output_stream,
         env=os.environ.copy(), cwd=build_dir, shell=True)
 
-
+   print('1')
     os.makedirs(build_dir + f'cfg_out_{fuzz_target}', exist_ok=True)
 
+
+    print('2')
     subprocess.check_call(f"opt -dot-cfg ../.{fuzz_target}.o_fix.ll".split(),
         stdout=output_stream,
         stderr=output_stream,
@@ -73,12 +75,14 @@ def build():
             dst = build_dir + f'cfg_out_{fuzz_target}/' + dst
 
             os.rename(src, dst) 
-
+    print('3')
     print(os.listdir(build_dir + f'cfg_out_{fuzz_target}/'))
     raise
+    print('4')
     subprocess.check_call(shlex.quote(f'/bin/bash -ex python3 /afl/afl_integration/build_example/gen_graph.py ./.{fuzz_target}.o_fix.ll cfg_out_{fuzz_target}'),
         env=new_env, cwd=build_dir, shell=True)
 
+    print('5')
     shutil.copy('/afl/afl_integration/build_example/afl-fuzz_kscheduler',
                 os.environ['OUT'])
     shutil.copy('/afl/afl_integration/build_example/gen_dyn_weight.py',
