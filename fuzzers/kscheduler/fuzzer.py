@@ -58,7 +58,7 @@ def build():
         stderr=output_stream,
         env=os.environ.copy(), cwd=build_dir, shell=True)
 
-   print('1')
+    print('1')
     os.makedirs(build_dir + f'cfg_out_{fuzz_target}', exist_ok=True)
 
 
