@@ -2,6 +2,7 @@ import os
 import shutil
 import subprocess
 import yaml
+import shlex
 
 from fuzzers import utils
 from fuzzers.afl import fuzzer as afl_fuzzer
@@ -73,8 +74,8 @@ def build():
 
             os.rename(src, dst) 
 
-    subprocess.check_call(f'python3 /afl/afl_integration/build_example/gen_graph.py ./.{fuzz_target}.o_fix.ll cfg_out_{fuzz_target}',
-        env=new_env, cwd=build_dir, shell=True, universal_newlines=True)
+    subprocess.check_call(shlex.quote(f'python3 /afl/afl_integration/build_example/gen_graph.py ./.{fuzz_target}.o_fix.ll cfg_out_{fuzz_target})',
+        env=new_env, cwd=build_dir, shell=True)
 
     shutil.copy('/afl/afl_integration/build_example/afl-fuzz_kscheduler',
                 os.environ['OUT'])
