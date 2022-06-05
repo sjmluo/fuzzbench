@@ -86,8 +86,8 @@ def build():
     for  filename in os.listdir('/out/' + f'cfg_out_{fuzz_target}/'):
         if filename.endswith('.dot'):
             dst =filename[1:]
-            src = build_dir + f'cfg_out_{fuzz_target}/' + filename 
-            dst = build_dir + f'cfg_out_{fuzz_target}/' + dst
+            src = '/out/' + f'cfg_out_{fuzz_target}/' + filename 
+            dst = '/out/' + f'cfg_out_{fuzz_target}/' + dst
 
             os.rename(src, dst) 
     print('4')
