@@ -26,7 +26,7 @@ def build():
     output_stream = None
 
     subprocess.check_call(
-        f"extract-bc -l /afl/libfuzzer_integration/llvm_11.0.1/build/bin/llvm-link {fuzz_target}"
+        f"extract-bc -l /afl/libfuzzer_integration/llvm_11.0.1/build/bin/llvm-link ./{fuzz_target}"
         .split(),
         stdout=output_stream,
         stderr=output_stream,
@@ -56,14 +56,14 @@ def build():
         stdout=output_stream,
         stderr=output_stream,
         env=os.environ.copy(),
-        cwd=os.environ['OUT'] + f'cfg_out_{fuzz_target}',
+        cwd=os.environ['OUT'] + f'/cfg_out_{fuzz_target}',
         shell=True)
 
-    for filename in os.listdir(os.environ['OUT'] + f'cfg_out_{fuzz_target}/'):
+    for filename in os.listdir(os.environ['OUT'] + f'/cfg_out_{fuzz_target}/'):
         if filename.endswith('.dot'):
             dst = filename[1:]
-            src = os.environ['OUT'] + f'cfg_out_{fuzz_target}/' + filename
-            dst = os.environ['OUT'] + f'cfg_out_{fuzz_target}/' + dst
+            src = os.environ['OUT'] + f'/cfg_out_{fuzz_target}/' + filename
+            dst = os.environ['OUT'] + f'/cfg_out_{fuzz_target}/' + dst
 
             os.rename(src, dst)
 
