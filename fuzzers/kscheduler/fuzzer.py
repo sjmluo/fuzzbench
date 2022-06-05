@@ -95,15 +95,15 @@ def build():
     raise
     print('5')
     subprocess.check_call(f'python3 /afl/afl_integration/build_example/gen_graph.py ./{fuzz_target}_fix.ll cfg_out_{fuzz_target}',
-        env=new_env, cwd='/out/', shell=True)
+        env=os.environ.copy(), cwd='/out/', shell=True)
 
     print('6')
     shutil.copy('/afl/afl_integration/build_example/afl-fuzz_kscheduler',
                 os.environ['OUT'])
     shutil.copy('/afl/afl_integration/build_example/gen_dyn_weight.py',
                 os.environ['OUT'])
-    shutil.copy('/afl/afl_integration/build_example/gen_graph.py',
-                os.environ['OUT'])
+    # shutil.copy('/afl/afl_integration/build_example/gen_graph.py',
+    #             os.environ['OUT'])
     # shutil.copy(f'{build_dir}.{fuzz_target}.o_fix.ll',
     #             os.environ['OUT'])
     # shutil.copytree(f'{build_dir}cfg_out_{fuzz_target}', os.environ['OUT'] + f'/cfg_out_{fuzz_target}')
