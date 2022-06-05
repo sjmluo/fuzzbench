@@ -53,9 +53,7 @@ def build():
                           stderr=output_stream,
                           env=os.environ.copy(), cwd='/out/')
 
-    print(os.system('ls -alp /out/'))
-    print(os.system(f'ls -alp {build_dir}'))
-    print(os.system('ls -alp /afl/libfuzzer_integration/llvm_11.0.1/build/bin/'))
+
 
     subprocess.check_call(f"/afl/libfuzzer_integration/llvm_11.0.1/build/bin/llvm-dis ./{fuzz_target}.bc".split(),
         stdout=output_stream,
@@ -72,7 +70,12 @@ def build():
 
 
     print('2')
-    subprocess.check_call(f"sh -c /afl/libfuzzer_integration/llvm_11.0.1/build/bin/opt -dot-cfg ../.{fuzz_target}_fix.ll",
+    
+    print(os.system('ls -alp /out/'))
+    print(os.system(f'ls -alp {build_dir}'))
+    print(os.system('ls -alp /afl/libfuzzer_integration/llvm_11.0.1/build/bin/'))
+
+    subprocess.check_call(f"/afl/libfuzzer_integration/llvm_11.0.1/build/bin/opt -dot-cfg ../{fuzz_target}_fix.ll",
         stdout=output_stream,
         stderr=output_stream,
         env=os.environ.copy(), cwd='/out/' + f'cfg_out_{fuzz_target}', shell=True)
