@@ -1,7 +1,6 @@
 import os
 import shutil
 import subprocess
-import yaml
 import shlex
 
 from fuzzers import utils
@@ -21,14 +20,7 @@ def build():
     os.environ['LLVM_COMPILER'] = 'clang'
     os.environ['FUZZER_LIB'] = '/afl/afl_integration/build_example/afl_llvm_rt_driver.a'
 
-    with open('/src/benchmark.yaml') as f:
-        benmark_data = yaml.load(f, Loader=yaml.FullLoader)
-
     fuzz_target = os.getenv('FUZZ_TARGET')
-    prject_name = benmark_data['project']
-
-    # build_dir = f'/src/{prject_name}/'
-    # os.makedirs(build_dir, exist_ok=True)
     utils.build_benchmark()
 
 
