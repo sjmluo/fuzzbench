@@ -27,27 +27,17 @@ def build():
     fuzz_target = os.getenv('FUZZ_TARGET')
     prject_name = benmark_data['project']
 
-    # build_dir = '/afl/afl_integration/build_example/out'
-    build_dir = f'/src/{prject_name}/'
-    os.makedirs(build_dir, exist_ok=True)
-    new_env = os.environ.copy()
-    new_env['OUT'] = build_dir
-    # print(os.environ['OUT'] )
-    # raise
+    # build_dir = f'/src/{prject_name}/'
+    # os.makedirs(build_dir, exist_ok=True)
     utils.build_benchmark()
 
 
 
-
-    # if fuzz_target:
-    #   new_env['FUZZ_TARGET'] = os.path.join(build_dir, os.path.basename(fuzz_target))
-
     output_stream = None
 
-    # shutil.copy(f'{build_dir}{fuzz_target}',
-    #             os.environ['OUT'])
 
-    ft = os.path.join(build_dir, fuzz_target)
+
+    # ft = os.path.join(build_dir, fuzz_target)
     subprocess.check_call(f"extract-bc -l /afl/libfuzzer_integration/llvm_11.0.1/build/bin/llvm-link {fuzz_target}".split(),
                           stdout=output_stream,
                           stderr=output_stream,
@@ -65,22 +55,12 @@ def build():
         stderr=output_stream,
         env=os.environ.copy(), cwd='/out/', shell=True)
 
-    print('1')
     os.makedirs('/out/' + f'cfg_out_{fuzz_target}', exist_ok=True)
-
-
-    print('2')
-    
-    print(os.system('ls -alp /out/'))
-    print(os.system(f'ls -alp {build_dir}'))
-    print(os.system('ls -alp /afl/libfuzzer_integration/llvm_11.0.1/build/bin/'))
 
     subprocess.check_call(f"/afl/libfuzzer_integration/llvm_11.0.1/build/bin/opt -dot-cfg ../{fuzz_target}_fix.ll",
         stdout=output_stream,
         stderr=output_stream,
         env=os.environ.copy(), cwd='/out/' + f'cfg_out_{fuzz_target}', shell=True)
-
-    print('3')
 
 
     for  filename in os.listdir('/out/' + f'cfg_out_{fuzz_target}/'):
@@ -90,28 +70,15 @@ def build():
             dst = '/out/' + f'cfg_out_{fuzz_target}/' + dst
 
             os.rename(src, dst) 
-    print('4')
-    print(os.listdir(build_dir + f'cfg_out_{fuzz_target}/'))
-    raise
-    print('5')
+
     subprocess.check_call(f'python3 /afl/afl_integration/build_example/gen_graph.py ./{fuzz_target}_fix.ll cfg_out_{fuzz_target}',
         env=os.environ.copy(), cwd='/out/', shell=True)
 
-    print('6')
     shutil.copy('/afl/afl_integration/build_example/afl-fuzz_kscheduler',
                 os.environ['OUT'])
     shutil.copy('/afl/afl_integration/build_example/gen_dyn_weight.py',
                 os.environ['OUT'])
-    # shutil.copy('/afl/afl_integration/build_example/gen_graph.py',
-    #             os.environ['OUT'])
-    # shutil.copy(f'{build_dir}.{fuzz_target}.o_fix.ll',
-    #             os.environ['OUT'])
-    # shutil.copytree(f'{build_dir}cfg_out_{fuzz_target}', os.environ['OUT'] + f'/cfg_out_{fuzz_target}')
-    # os.environ['OUT'] += os.pathsep + os.pathsep.join(build_dir) # + os.pathsep + os.pathsep.join('/afl/afl_integration/build_example/')
 
-    # print(os.system(f'ls -alp {build_dir}'))
-    # print(os.system(f'ls -alp {build_dir}/cfg_out_{fuzz_target}'))
-    # raise
 
 def fuzz(input_corpus, output_corpus, target_binary):
     afl_fuzzer.prepare_fuzz_environment(input_corpus)
