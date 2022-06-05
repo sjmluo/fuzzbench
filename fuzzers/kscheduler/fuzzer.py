@@ -45,8 +45,8 @@ def build():
 
     output_stream = None
 
-    shutil.copy(f'{build_dir}{fuzz_target}',
-                os.environ['OUT'])
+    # shutil.copy(f'{build_dir}{fuzz_target}',
+    #             os.environ['OUT'])
 
     ft = os.path.join(build_dir, fuzz_target)
     subprocess.check_call(f"extract-bc {fuzz_target}".split(),
