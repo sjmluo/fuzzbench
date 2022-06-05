@@ -1,7 +1,6 @@
 import os
 import shutil
 import subprocess
-import shlex
 
 from fuzzers import utils
 from fuzzers.afl import fuzzer as afl_fuzzer
@@ -23,13 +22,8 @@ def build():
     fuzz_target = os.getenv('FUZZ_TARGET')
     utils.build_benchmark()
 
-
-
     output_stream = None
 
-
-
-    # ft = os.path.join(build_dir, fuzz_target)
     subprocess.check_call(f"extract-bc -l /afl/libfuzzer_integration/llvm_11.0.1/build/bin/llvm-link {fuzz_target}".split(),
                           stdout=output_stream,
                           stderr=output_stream,
