@@ -31,7 +31,7 @@ def build():
         stdout=output_stream,
         stderr=output_stream,
         env=os.environ.copy(),
-        cwd='/out/')
+        cwd=os.environ['OUT'])
 
     subprocess.check_call(
         f"/afl/libfuzzer_integration/llvm_11.0.1/build/bin/llvm-dis ./{fuzz_target}.bc"
@@ -39,14 +39,14 @@ def build():
         stdout=output_stream,
         stderr=output_stream,
         env=os.environ.copy(),
-        cwd='/out/')
+        cwd=os.environ['OUT'])
 
     subprocess.check_call(
         f"python3 /afl/afl_integration/build_example/fix_long_fun_name.py ./{fuzz_target}.ll",
         stdout=output_stream,
         stderr=output_stream,
         env=os.environ.copy(),
-        cwd='/out/',
+        cwd=os.environ['OUT'],
         shell=True)
 
     os.makedirs('/out/' + f'cfg_out_{fuzz_target}', exist_ok=True)
@@ -56,21 +56,21 @@ def build():
         stdout=output_stream,
         stderr=output_stream,
         env=os.environ.copy(),
-        cwd='/out/' + f'cfg_out_{fuzz_target}',
+        cwd=os.environ['OUT'] + f'cfg_out_{fuzz_target}',
         shell=True)
 
-    for filename in os.listdir('/out/' + f'cfg_out_{fuzz_target}/'):
+    for filename in os.listdir(os.environ['OUT'] + f'cfg_out_{fuzz_target}/'):
         if filename.endswith('.dot'):
             dst = filename[1:]
-            src = '/out/' + f'cfg_out_{fuzz_target}/' + filename
-            dst = '/out/' + f'cfg_out_{fuzz_target}/' + dst
+            src = os.environ['OUT'] + f'cfg_out_{fuzz_target}/' + filename
+            dst = os.environ['OUT'] + f'cfg_out_{fuzz_target}/' + dst
 
             os.rename(src, dst)
 
     subprocess.check_call(
         f'python3 /afl/afl_integration/build_example/gen_graph.py ./{fuzz_target}_fix.ll cfg_out_{fuzz_target}',
         env=os.environ.copy(),
-        cwd='/out/',
+        cwd=os.environ['OUT'],
         shell=True)
 
     shutil.copy('/afl/afl_integration/build_example/afl-fuzz_kscheduler',
