@@ -53,7 +53,7 @@ def build():
     subprocess.check_call(f"extract-bc {fuzz_target}".split(),
                           stdout=output_stream,
                           stderr=output_stream,
-                          env=os.environ.copy(), cwd=build_dir)
+                          env=os.environ.copy(), cwd='/out/')
 
     subprocess.check_call(f"/afl/libfuzzer_integration/llvm_11.0.1/build/bin/llvm-dis ./.{fuzz_target}.o.bc".split(),
         stdout=output_stream,
