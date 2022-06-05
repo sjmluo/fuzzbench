@@ -36,8 +36,9 @@ def build():
     # raise
     utils.build_benchmark()
 
-    print(os.system('ls -alp os.environ.copy()["OUT"]'))
-    print(os.system('ls -alp {build_dir}'))
+    print(os.system('ls -alp /out/'))
+    print(os.system(f'ls -alp {build_dir}'))
+    raise
 
 
     # if fuzz_target:
