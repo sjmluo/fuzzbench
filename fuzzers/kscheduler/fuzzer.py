@@ -48,7 +48,7 @@ def build():
     #             os.environ['OUT'])
 
     ft = os.path.join(build_dir, fuzz_target)
-    subprocess.check_call(f"extract-bc -l /afl/libfuzzer_integration/llvm_11.0.1/build/bin/ {fuzz_target}".split(),
+    subprocess.check_call(f"extract-bc -l {build_dir} {fuzz_target}".split(),
                           stdout=output_stream,
                           stderr=output_stream,
                           env=os.environ.copy(), cwd='/out/')
