@@ -1,7 +1,6 @@
 import os
 import shutil
 import subprocess
-import shlex
 
 from fuzzers import utils
 from fuzzers.afl import fuzzer as afl_fuzzer
