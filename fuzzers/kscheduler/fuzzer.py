@@ -38,7 +38,6 @@ def build():
 
     print(os.system('ls -alp /out/'))
     print(os.system(f'ls -alp {build_dir}'))
-    raise
 
 
     # if fuzz_target:
