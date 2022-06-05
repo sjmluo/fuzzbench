@@ -83,7 +83,7 @@ def build():
     print('3')
 
 
-    for  filename in os.listdir(build_dir + f'cfg_out_{fuzz_target}/'):
+    for  filename in os.listdir('/out/' + f'cfg_out_{fuzz_target}/'):
         if filename.endswith('.dot'):
             dst =filename[1:]
             src = build_dir + f'cfg_out_{fuzz_target}/' + filename 
@@ -94,8 +94,8 @@ def build():
     print(os.listdir(build_dir + f'cfg_out_{fuzz_target}/'))
     raise
     print('5')
-    subprocess.check_call(f'python3 /afl/afl_integration/build_example/gen_graph.py ./.{fuzz_target}.o_fix.ll cfg_out_{fuzz_target}',
-        env=new_env, cwd=build_dir, shell=True)
+    subprocess.check_call(f'python3 /afl/afl_integration/build_example/gen_graph.py ./{fuzz_target}_fix.ll cfg_out_{fuzz_target}',
+        env=new_env, cwd='/out/', shell=True)
 
     print('6')
     shutil.copy('/afl/afl_integration/build_example/afl-fuzz_kscheduler',
@@ -104,9 +104,9 @@ def build():
                 os.environ['OUT'])
     shutil.copy('/afl/afl_integration/build_example/gen_graph.py',
                 os.environ['OUT'])
-    shutil.copy(f'{build_dir}.{fuzz_target}.o_fix.ll',
-                os.environ['OUT'])
-    shutil.copytree(f'{build_dir}cfg_out_{fuzz_target}', os.environ['OUT'] + f'/cfg_out_{fuzz_target}')
+    # shutil.copy(f'{build_dir}.{fuzz_target}.o_fix.ll',
+    #             os.environ['OUT'])
+    # shutil.copytree(f'{build_dir}cfg_out_{fuzz_target}', os.environ['OUT'] + f'/cfg_out_{fuzz_target}')
     # os.environ['OUT'] += os.pathsep + os.pathsep.join(build_dir) # + os.pathsep + os.pathsep.join('/afl/afl_integration/build_example/')
 
     # print(os.system(f'ls -alp {build_dir}'))
