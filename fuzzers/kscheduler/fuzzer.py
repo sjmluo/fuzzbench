@@ -17,48 +17,61 @@ def build():
     os.environ['CC'] = 'wllvm'
     os.environ['CXX'] = 'wllvm++'
     os.environ['LLVM_COMPILER'] = 'clang'
-    os.environ['FUZZER_LIB'] = '/afl/afl_integration/build_example/afl_llvm_rt_driver.a'
+    os.environ[
+        'FUZZER_LIB'] = '/afl/afl_integration/build_example/afl_llvm_rt_driver.a'
 
     fuzz_target = os.getenv('FUZZ_TARGET')
     utils.build_benchmark()
 
     output_stream = None
 
-    subprocess.check_call(f"extract-bc -l /afl/libfuzzer_integration/llvm_11.0.1/build/bin/llvm-link {fuzz_target}".split(),
-                          stdout=output_stream,
-                          stderr=output_stream,
-                          env=os.environ.copy(), cwd='/out/')
-
-
-
-    subprocess.check_call(f"/afl/libfuzzer_integration/llvm_11.0.1/build/bin/llvm-dis ./{fuzz_target}.bc".split(),
+    subprocess.check_call(
+        f"extract-bc -l /afl/libfuzzer_integration/llvm_11.0.1/build/bin/llvm-link {fuzz_target}"
+        .split(),
         stdout=output_stream,
         stderr=output_stream,
-        env=os.environ.copy(), cwd='/out/')
+        env=os.environ.copy(),
+        cwd='/out/')
 
-    subprocess.check_call(f"python3 /afl/afl_integration/build_example/fix_long_fun_name.py ./{fuzz_target}.ll",
+    subprocess.check_call(
+        f"/afl/libfuzzer_integration/llvm_11.0.1/build/bin/llvm-dis ./{fuzz_target}.bc"
+        .split(),
         stdout=output_stream,
         stderr=output_stream,
-        env=os.environ.copy(), cwd='/out/', shell=True)
+        env=os.environ.copy(),
+        cwd='/out/')
+
+    subprocess.check_call(
+        f"python3 /afl/afl_integration/build_example/fix_long_fun_name.py ./{fuzz_target}.ll",
+        stdout=output_stream,
+        stderr=output_stream,
+        env=os.environ.copy(),
+        cwd='/out/',
+        shell=True)
 
     os.makedirs('/out/' + f'cfg_out_{fuzz_target}', exist_ok=True)
 
-    subprocess.check_call(f"/afl/libfuzzer_integration/llvm_11.0.1/build/bin/opt -dot-cfg ../{fuzz_target}_fix.ll",
+    subprocess.check_call(
+        f"/afl/libfuzzer_integration/llvm_11.0.1/build/bin/opt -dot-cfg ../{fuzz_target}_fix.ll",
         stdout=output_stream,
         stderr=output_stream,
-        env=os.environ.copy(), cwd='/out/' + f'cfg_out_{fuzz_target}', shell=True)
+        env=os.environ.copy(),
+        cwd='/out/' + f'cfg_out_{fuzz_target}',
+        shell=True)
 
-
-    for  filename in os.listdir('/out/' + f'cfg_out_{fuzz_target}/'):
+    for filename in os.listdir('/out/' + f'cfg_out_{fuzz_target}/'):
         if filename.endswith('.dot'):
-            dst =filename[1:]
-            src = '/out/' + f'cfg_out_{fuzz_target}/' + filename 
+            dst = filename[1:]
+            src = '/out/' + f'cfg_out_{fuzz_target}/' + filename
             dst = '/out/' + f'cfg_out_{fuzz_target}/' + dst
 
-            os.rename(src, dst) 
+            os.rename(src, dst)
 
-    subprocess.check_call(f'python3 /afl/afl_integration/build_example/gen_graph.py ./{fuzz_target}_fix.ll cfg_out_{fuzz_target}',
-        env=os.environ.copy(), cwd='/out/', shell=True)
+    subprocess.check_call(
+        f'python3 /afl/afl_integration/build_example/gen_graph.py ./{fuzz_target}_fix.ll cfg_out_{fuzz_target}',
+        env=os.environ.copy(),
+        cwd='/out/',
+        shell=True)
 
     shutil.copy('/afl/afl_integration/build_example/afl-fuzz_kscheduler',
                 os.environ['OUT'])
@@ -81,7 +94,9 @@ def run_afl_fuzz(input_corpus,
     print('[run_afl_fuzz] Running target with afl-fuzz')
     output_stream = subprocess.DEVNULL if hide_output else None
     subprocess.Popen('python3 ./gen_dyn_weight.py &', shell=True)
-    subprocess.check_call('echo 0 > signal'.split(), stdout=output_stream, stderr=output_stream)
+    subprocess.check_call('echo 0 > signal'.split(),
+                          stdout=output_stream,
+                          stderr=output_stream)
     command = [
         './afl-fuzz_kscheduler',
         '-i',
@@ -113,4 +128,3 @@ def run_afl_fuzz(input_corpus,
     print('[run_afl_fuzz] Running command: ' + ' '.join(command))
 
     subprocess.check_call(command, stdout=output_stream, stderr=output_stream)
-
