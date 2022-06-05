@@ -62,17 +62,17 @@ def build():
     subprocess.check_call(f"python3 /afl/afl_integration/build_example/fix_long_fun_name.py ./.{fuzz_target}.o.ll",
         stdout=output_stream,
         stderr=output_stream,
-        env=os.environ.copy(), cwd=build_dir, shell=True)
+        env=os.environ.copy(), cwd='/out/', shell=True)
 
     print('1')
-    os.makedirs(build_dir + f'cfg_out_{fuzz_target}', exist_ok=True)
+    os.makedirs('/out/' + f'cfg_out_{fuzz_target}', exist_ok=True)
 
 
     print('2')
     subprocess.check_call(f"sh -c /afl/libfuzzer_integration/llvm_11.0.1/build/bin/opt -dot-cfg ../.{fuzz_target}.o_fix.ll",
         stdout=output_stream,
         stderr=output_stream,
-        env=os.environ.copy(), cwd=build_dir + f'cfg_out_{fuzz_target}', shell=True)
+        env=os.environ.copy(), cwd='/out/' + f'cfg_out_{fuzz_target}', shell=True)
 
     print('3')
 
