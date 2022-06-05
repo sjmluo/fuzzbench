@@ -36,6 +36,9 @@ def build():
     # raise
     utils.build_benchmark()
 
+    print(os.system('ls -alp os.environ.copy()["OUT"]'))
+    print(os.system('ls -alp {build_dir}'))
+
 
     # if fuzz_target:
     #   new_env['FUZZ_TARGET'] = os.path.join(build_dir, os.path.basename(fuzz_target))
