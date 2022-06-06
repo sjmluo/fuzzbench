@@ -2,7 +2,7 @@ ARG parent_image
 FROM $parent_image
 
 RUN apt-get update && \
-    apt-get install -y ninja-build texinfo libstdc++6 flex bison
+    apt-get install -y ninja-build texinfo libstdc++6 flex bison cmake gcc g++ python3-setuptools zlib1g build-essential
 
 RUN git clone https://github.com/Dongdongshe/K-Scheduler.git /afl && \
     cd /afl
@@ -13,7 +13,7 @@ RUN cd /afl/libfuzzer_integration/llvm_11.0.1 && \
     cmake -G Ninja -DLLVM_ENABLE_PROJECTS="clang;compiler-rt" -DCMAKE_BUILD_TYPE=release -DLLVM_TARGETS_TO_BUILD=host ../llvm  && \
     ninja && cd ../../..
 
-RUN pip3 install --upgrade pip && pip3 install wllvm networkit ipdb
+RUN export LLVM_COMPILER_PATH=/afl/libfuzzer_integration/llvm_11.0.1/build/bin && pip3 install --upgrade pip && pip3 install wllvm networkit ipdb
 
 RUN cd /afl/afl_integration/build_example && \
     export PATH=/afl/libfuzzer_integration/llvm_11.0.1/build/bin:$PATH && \

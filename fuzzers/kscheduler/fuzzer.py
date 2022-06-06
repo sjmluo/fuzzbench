@@ -9,7 +9,7 @@ from fuzzers.afl import fuzzer as afl_fuzzer
 def build():
 
     cflags = [
-        '-stdlib=libstdc++ -fsanitize-coverage=trace-pc-guard,no-prune -O2 -fno-omit-frame-pointer -gline-tables-only -fsanitize=address,fuzzer-no-link -fsanitize-address-use-after-scope -c -std=c++11'
+        '-stdlib=libstdc++ -fsanitize-coverage=trace-pc-guard,no-prune -O2 -fno-omit-frame-pointer -gline-tables-only -fsanitize=address,fuzzer-no-link -fsanitize-address-use-after-scope'
     ]
     utils.append_flags('CFLAGS', cflags)
     utils.append_flags('CXXFLAGS', cflags)
@@ -17,8 +17,8 @@ def build():
     os.environ['CC'] = 'wllvm'
     os.environ['CXX'] = 'wllvm++'
     os.environ['LLVM_COMPILER'] = 'clang'
-    os.environ[
-        'FUZZER_LIB'] = '/afl/afl_integration/build_example/afl_llvm_rt_driver.a'
+    os.environ['LLVM_COMPILER_PATH'] = '/afl/libfuzzer_integration/llvm_11.0.1/build/bin'
+    os.environ['FUZZER_LIB'] = '/afl/afl_integration/build_example/afl_llvm_rt_driver.a'
 
     fuzz_target = os.getenv('FUZZ_TARGET')
     utils.build_benchmark()
@@ -26,22 +26,20 @@ def build():
     output_stream = None
 
     subprocess.check_call(
-        f"extract-bc -l /afl/libfuzzer_integration/llvm_11.0.1/build/bin/llvm-link ./{fuzz_target}"
-        .split(),
+        f"extract-bc -l /afl/libfuzzer_integration/llvm_11.0.1/build/bin/llvm-link ./{fuzz_target}",
         stdout=output_stream,
         stderr=output_stream,
         env=os.environ.copy(),
-        cwd=os.environ['OUT'])
-
-    print(os.system('ls -alp /src/harfbuzz'))
+        cwd=os.environ['OUT'],
+        shell=True)
 
     subprocess.check_call(
-        f"/afl/libfuzzer_integration/llvm_11.0.1/build/bin/llvm-dis ./{fuzz_target}.bc"
-        .split(),
+        f"/afl/libfuzzer_integration/llvm_11.0.1/build/bin/llvm-dis ./{fuzz_target}.bc",
         stdout=output_stream,
         stderr=output_stream,
         env=os.environ.copy(),
-        cwd=os.environ['OUT'])
+        cwd=os.environ['OUT'],
+        shell=True)
 
     subprocess.check_call(
         f"python3 /afl/afl_integration/build_example/fix_long_fun_name.py ./{fuzz_target}.ll",
