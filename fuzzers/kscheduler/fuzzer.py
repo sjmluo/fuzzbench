@@ -9,7 +9,7 @@ from fuzzers.afl import fuzzer as afl_fuzzer
 def build():
 
     cflags = [
-        '-lstdc++ -stdlib=libstdc++ -fsanitize-coverage=trace-pc-guard,no-prune -O2 -fno-omit-frame-pointer -gline-tables-only -fsanitize=address,fuzzer-no-link -fsanitize-address-use-after-scope'
+        '-stdlib=libstdc++ -fsanitize-coverage=trace-pc-guard,no-prune -O2 -fno-omit-frame-pointer -gline-tables-only -fsanitize=address,fuzzer-no-link -fsanitize-address-use-after-scope -c -std=c++11'
     ]
     utils.append_flags('CFLAGS', cflags)
     utils.append_flags('CXXFLAGS', cflags)
@@ -32,6 +32,8 @@ def build():
         stderr=output_stream,
         env=os.environ.copy(),
         cwd=os.environ['OUT'])
+
+    print(os.system('ls -alp /src/harfbuzz'))
 
     subprocess.check_call(
         f"/afl/libfuzzer_integration/llvm_11.0.1/build/bin/llvm-dis ./{fuzz_target}.bc"
