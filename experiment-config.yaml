@@ -1,6 +1,6 @@
 # The number of trials of a fuzzer-benchmark pair.
 
-trials: 5
+trials: 3x
 
 
 
