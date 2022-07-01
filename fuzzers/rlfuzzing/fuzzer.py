@@ -19,6 +19,8 @@ import shutil
 
 from fuzzers.afl import fuzzer as afl_fuzzer
 from fuzzers import utils
+import subprocess
+
 
 
 def get_cmplog_build_directory(target_directory):
