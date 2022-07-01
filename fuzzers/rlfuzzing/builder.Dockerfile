@@ -21,7 +21,7 @@ RUN apt-get update && \
                        libglib2.0-dev libpixman-1-dev python3-setuptools unzip \
                        apt-utils apt-transport-https ca-certificates python-sysv-ipc
 
-RUN pip3 install --upgrade pip && pip3 install --upgrade "jax[cpu]" sysv_ipc 
+RUN pip3 install --upgrade pip && pip3 install sysv_ipc 
 
 # Download and compile afl++.
 RUN git clone https://github.com/sjmluo/RLFuzzing.git /afl && \
