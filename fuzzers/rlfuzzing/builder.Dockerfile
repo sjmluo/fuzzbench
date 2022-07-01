@@ -24,10 +24,8 @@ RUN apt-get update && \
 pip3 install --upgrade pip && pip3 install --upgrade "jax[cpu]" sysv_ipc 
 
 # Download and compile afl++.
-RUN git clone https://github.com/AFLplusplus/AFLplusplus.git /afl && \
-    cd /afl && \
-    git checkout 2a4d77abc69942f3bf102befb50501cf5fc0ea0b
-
+RUN git clone https://github.com/sjmluo/RLFuzzing.git /afl && \
+    cd /afl
 # Build without Python support as we don't need it.
 # Set AFL_NO_X86 to skip flaky tests.
 RUN cd /afl && unset CFLAGS && unset CXXFLAGS && \
