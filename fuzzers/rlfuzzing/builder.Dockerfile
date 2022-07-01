@@ -19,7 +19,7 @@ FROM $parent_image
 RUN apt-get update && \
     apt-get install -y wget libstdc++-5-dev libtool-bin automake flex bison \
                        libglib2.0-dev libpixman-1-dev python3-setuptools unzip \
-                       apt-utils apt-transport-https ca-certificates
+                       apt-utils apt-transport-https ca-certificates python-sysv-ipc
 
 RUN pip3 install --upgrade pip && pip3 install --upgrade "jax[cpu]" sysv_ipc 
 
