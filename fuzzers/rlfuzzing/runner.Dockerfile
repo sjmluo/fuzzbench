@@ -14,6 +14,12 @@
 
 FROM gcr.io/fuzzbench/base-image
 
+
+RUN apt-get update && \
+    apt-get install -y python3-setuptools python-sysv-ipc
+
+RUN pip3 install --upgrade pip && pip3 install sysv_ipc
+
 # This makes interactive docker runs painless:
 ENV LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/out"
 #ENV AFL_MAP_SIZE=2621440
