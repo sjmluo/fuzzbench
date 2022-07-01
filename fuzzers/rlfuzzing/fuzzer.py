@@ -238,7 +238,7 @@ def build(*args):  # pylint: disable=too-many-branches,too-many-statements
 
 
 
-    shutil.copy('/src/RLFuzzing.py', build_directory)
+    shutil.copy('/afl/src/RLFuzzing.py', build_directory)
 
 
 
