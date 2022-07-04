@@ -15,6 +15,7 @@
 """Integration code for AFLplusplus fuzzer."""
 
 import os
+import shutil
 import subprocess
 
 from fuzzers.aflplusplus import fuzzer as aflplusplus_fuzzer
