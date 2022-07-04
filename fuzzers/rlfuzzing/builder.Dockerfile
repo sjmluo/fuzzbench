@@ -35,7 +35,7 @@ RUN git clone https://github.com/sjmluo/RLFuzzing.git /afl
 # Build afl++ without Python support as we don't need it.
 # Set AFL_NO_X86 to skip flaky tests.
 RUN cd /afl && \
-    unset CFLAGS && unset CXXFLAGS && \
+    unset CFLAGS && unset CXXFLAGS && LLVM_CONFIG=llvm-config-12 && \
     AFL_NO_X86=1 CC=clang PYTHON_INCLUDE=/ make && \
     cd qemu_mode && ./build_qemu_support.sh && cd .. && \
     make -C utils/aflpp_driver && \
