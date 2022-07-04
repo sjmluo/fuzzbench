@@ -36,6 +36,6 @@ RUN cd /afl && \
     unset CFLAGS && unset CXXFLAGS && \
     AFL_NO_X86=1 CC=clang PYTHON_INCLUDE=/ make && \
     cd qemu_mode && ./build_qemu_support.sh && cd .. && \
-    make -C examples/aflpp_driver && \
-    cp examples/aflpp_driver/libAFLQemuDriver.a /libAFLDriver.a && \
-    cp examples/aflpp_driver/aflpp_qemu_driver_hook.so /
+    make -C utils/aflpp_driver && \
+    cp utils/aflpp_driver/libAFLQemuDriver.a /libAFLDriver.a && \
+    cp utils/aflpp_driver/aflpp_qemu_driver_hook.so /
