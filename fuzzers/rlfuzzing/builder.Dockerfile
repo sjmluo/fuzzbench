@@ -18,7 +18,8 @@ FROM $parent_image
 # Install the necessary packages.
 RUN apt-get update && \
     apt-get install -y wget libstdc++-5-dev libtool-bin automake flex bison \
-                       libglib2.0-dev libpixman-1-dev python3-setuptools unzip python-sysv-ipc
+                       libglib2.0-dev libpixman-1-dev python3-setuptools unzip \
+                       build-essential python3-dev clang llvm python-sysv-ipc
 
 # Why do some build images have ninja, other not? Weird.
 RUN cd / && wget https://github.com/ninja-build/ninja/releases/download/v1.10.1/ninja-linux.zip && \
@@ -35,6 +36,6 @@ RUN cd /afl && \
     unset CFLAGS && unset CXXFLAGS && \
     AFL_NO_X86=1 CC=clang PYTHON_INCLUDE=/ make && \
     cd qemu_mode && ./build_qemu_support.sh && cd .. && \
-    make -C utils/aflpp_driver && \
-    cp utils/aflpp_driver/libAFLQemuDriver.a /libAFLDriver.a && \
-    cp utils/aflpp_driver/aflpp_qemu_driver_hook.so /
+    make -C examples/aflpp_driver && \
+    cp examples/aflpp_driver/libAFLQemuDriver.a /libAFLDriver.a && \
+    cp examples/aflpp_driver/aflpp_qemu_driver_hook.so /
