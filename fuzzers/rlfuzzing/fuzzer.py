@@ -15,6 +15,7 @@ def build():
 def fuzz(input_corpus, output_corpus, target_binary):
     """Run fuzzer."""
     # Get LLVMFuzzerTestOneInput address.
+    subprocess.Popen('python3 ./RLFuzzing.py &', shell=True)
     nm_proc = subprocess.run([
         'sh', '-c',
         'nm \'' + target_binary + '\' | grep -i \'T afl_qemu_driver_stdin\''
