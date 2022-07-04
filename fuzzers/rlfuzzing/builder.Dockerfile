@@ -22,12 +22,7 @@ RUN apt-get update && \
                        gcc-5-plugin-dev build-essential python3-dev cmake ninja-build python-sysv-ipc apt-transport-https 
 
 
-RUN echo deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial xenial >> /etc/apt/sources.list && wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - && apt-get update && apt-get upgrade -y && \
-    apt-get install -y clang-11 clang-tools-11 libc++1-11 libc++-11-dev \
-                       libc++abi1-11 libc++abi-11-dev libclang1-11 libclang-11-dev \
-                       libclang-common-11-dev libclang-cpp11 libclang-cpp11-dev liblld-11 \
-                       liblld-11-dev liblldb-11 liblldb-11-dev libllvm11 libomp-11-dev \
-                       libomp5-11 lld-11 lldb-11 llvm-11 llvm-11-dev llvm-11-runtime llvm-11-tools
+RUN apt-get install -y lld-12 llvm-12 llvm-12-dev clang-12
 
 
 
@@ -43,5 +38,5 @@ RUN git clone https://github.com/sjmluo/RLFuzzing.git /afl
 # Build afl++ without Python support as we don't need it.
 # Set AFL_NO_X86 to skip flaky tests.
 RUN cd /afl && \
-    LLVM_CONFIG=llvm-config-11 make && make distrib && make install
+    LLVM_CONFIG=llvm-config-12 make && make distrib && make install
 
