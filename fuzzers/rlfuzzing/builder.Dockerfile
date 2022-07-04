@@ -15,8 +15,6 @@
 ARG parent_image
 FROM $parent_image
 
-RUN lsb_release -a || true && false
-
 # Install the necessary packages.
 RUN apt-get update && \
     apt-get install -y wget libstdc++-5-dev libtool-bin automake flex bison \
@@ -25,7 +23,7 @@ RUN apt-get update && \
 
 
 
-RUN echo deb http://apt.llvm.org/focal/ llvm-toolchain-focal focal >> /etc/apt/sources.list && wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add -
+RUN echo deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial xenial >> /etc/apt/sources.list && wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add -
 
 RUN apt-get update && apt-get upgrade -y \
     apt-get install -y clang-12 clang-tools-12 libc++1-12 libc++-12-dev \
