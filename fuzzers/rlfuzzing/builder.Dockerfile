@@ -22,7 +22,7 @@ RUN apt-get update && \
                        gcc-5-plugin-dev build-essential python3-dev cmake ninja-build python-sysv-ipc apt-transport-https 
 
 
-RUN echo deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial xenial >> /etc/apt/sources.list && wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - && apt-get update && apt-get upgrade -y && \
+RUN echo deb http://apt.llvm.org/focal/ llvm-toolchain-focal focal >> /etc/apt/sources.list && wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - && apt-get update && apt-get upgrade -y && \
     apt-get install -y clang-12 clang-tools-12 libc++1-12 libc++-12-dev \
                        libc++abi1-12 libc++abi-12-dev libclang1-12 libclang-12-dev \
                        libclang-common-12-dev libclang-cpp12 libclang-cpp12-dev liblld-12 \
