@@ -24,6 +24,7 @@ from fuzzers.aflplusplus import fuzzer as aflplusplus_fuzzer
 def build():
     """Build benchmark."""
     aflplusplus_fuzzer.build('qemu')
+    build_directory = os.environ['OUT']
     shutil.copy('/afl/src/RLFuzzing.py', build_directory)
 
 
