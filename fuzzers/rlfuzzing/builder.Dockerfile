@@ -22,7 +22,7 @@ RUN apt-get update && \
                        gcc-5-plugin-dev build-essential python3-dev cmake ninja-build python-sysv-ipc apt-transport-https 
 
 
-RUN apt-get install -y lld-12 llvm-12 llvm-12-dev clang-12
+RUN apt-get install -y lld llvm llvm-dev clang
 
 
 
