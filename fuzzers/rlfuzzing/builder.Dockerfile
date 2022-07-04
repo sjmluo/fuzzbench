@@ -18,8 +18,15 @@ FROM $parent_image
 # Install the necessary packages.
 RUN apt-get update && \
     apt-get install -y wget libstdc++-5-dev libtool-bin automake flex bison \
-                       libglib2.0-dev libpixman-1-dev python3-setuptools unzip \
-                       build-essential python3-dev cmake lld-12 llvm-12 llvm-12-dev clang-12 lld llvm llvm-dev clang gcc-$(gcc --version|head -n1|sed 's/\..*//'|sed 's/.* //')-plugin-dev libstdc++-$(gcc --version|head -n1|sed 's/\..*//'|sed 's/.* //')-dev ninja-build python-sysv-ipc
+                       libglib2.0-dev libpixman-1-dev python3-setuptools unzip
+
+RUN echo deb http://apt.llvm.org/focal/ llvm-toolchain-focal focal >> /etc/apt/sources.list && wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add -
+
+RUN apt-get install -y build-essential python3-dev cmake clang-12 clang-tools-12 libc++1-12 libc++-12-dev \
+                       libc++abi1-12 libc++abi-12-dev libclang1-12 libclang-12-dev \
+                       libclang-common-12-dev libclang-cpp12 libclang-cpp12-dev liblld-12 \
+                       liblld-12-dev liblldb-12 liblldb-12-dev libllvm12 libomp-12-dev \
+                       libomp5-12 lld-12 lldb-12 llvm-12 llvm-12-dev llvm-12-runtime llvm-12-tools gcc-$(gcc --version|head -n1|sed 's/\..*//'|sed 's/.* //')-plugin-dev libstdc++-$(gcc --version|head -n1|sed 's/\..*//'|sed 's/.* //')-dev ninja-build python-sysv-ipc
 
 
 
