@@ -22,7 +22,7 @@ RUN apt-get update && \
                        build-essential python3-dev cmake ninja-build python-sysv-ipc apt-transport-https
 
 
-RUN apt-get install -y lld llvm llvm-dev clang
+RUN apt-get install -y lld llvm llvm-dev clang gcc-10-plugin-dev libstdc++-10-dev
 
 
 
