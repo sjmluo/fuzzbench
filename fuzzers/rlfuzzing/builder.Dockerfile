@@ -15,11 +15,15 @@
 ARG parent_image
 FROM $parent_image
 
+RUN lsb_release -a || true && false
+
 # Install the necessary packages.
 RUN apt-get update && \
     apt-get install -y wget libstdc++-5-dev libtool-bin automake flex bison \
                        libglib2.0-dev libpixman-1-dev python3-setuptools unzip \
                        build-essential python3-dev cmake ninja-build python-sysv-ipc
+
+
 
 RUN echo deb http://apt.llvm.org/focal/ llvm-toolchain-focal focal >> /etc/apt/sources.list && wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add -
 
