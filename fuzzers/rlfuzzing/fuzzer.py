@@ -16,7 +16,6 @@ def fuzz(input_corpus, output_corpus, target_binary):
     """Run fuzzer."""
     # Get LLVMFuzzerTestOneInput address.
     subprocess.Popen('python3 ./RLFuzzing.py &', shell=True)
-    print(os.listdir())
     nm_proc = subprocess.run([
         'sh', '-c',
         'nm \'' + target_binary + '\' | grep -i \'T afl_qemu_driver_stdin\''
@@ -27,8 +26,8 @@ def fuzz(input_corpus, output_corpus, target_binary):
     print('[fuzz] afl_qemu_driver_stdin_input() address =', target_func)
 
     # Fuzzer options for qemu_mode.
-#     flags = ['-Q', '-c0']
-    flags = ['-Q', '-c0', '-p', 'explore']
+    flags = ['-Q', '-c0']
+#     flags = ['-Q', '-c0', '-p', 'explore']
 
     
     os.environ['AFL_QEMU_PERSISTENT_ADDR'] = target_func
