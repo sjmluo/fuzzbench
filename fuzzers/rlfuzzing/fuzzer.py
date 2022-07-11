@@ -16,6 +16,8 @@ def fuzz(input_corpus, output_corpus, target_binary):
     """Run fuzzer."""
     # Get LLVMFuzzerTestOneInput address.
     subprocess.Popen('python3 ./RLFuzzing.py &', shell=True)
+    subprocess.Popen('ls -al', shell=True)
+
 
     nm_proc = subprocess.run([
         'sh', '-c',
