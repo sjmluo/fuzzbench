@@ -9,7 +9,6 @@ def build():
     """Build benchmark."""
     aflplusplus_fuzzer.build('qemu')
 
-    shutil.copy('/afl/afl-fuzz', os.environ['OUT'])
     shutil.copy('/afl/src/RLFuzzing.py', os.environ['OUT'])
 
 def fuzz(input_corpus, output_corpus, target_binary):
