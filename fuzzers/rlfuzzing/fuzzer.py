@@ -36,9 +36,13 @@ def fuzz(input_corpus, output_corpus, target_binary):
 #     os.environ['AFL_QEMU_PERSISTENT_CNT'] = "1000000"
 #     os.environ['AFL_QEMU_DRIVER_NO_HOOK'] = "1"
     
+#     aflplusplus_fuzzer.fuzz(input_corpus,
+#                             output_corpus,
+#                             target_binary,
+#                             flags=flags)
+    
     aflplusplus_fuzzer.fuzz(input_corpus,
                             output_corpus,
-                            target_binary,
-                            flags=flags)
+                            target_binary)
 
 
