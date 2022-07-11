@@ -16,7 +16,6 @@ def fuzz(input_corpus, output_corpus, target_binary):
     """Run fuzzer."""
     # Get LLVMFuzzerTestOneInput address.
     subprocess.Popen('python3 ./RLFuzzing.py &', shell=True)
-    print(os.listdir())
 
     nm_proc = subprocess.run([
         'sh', '-c',
@@ -36,6 +35,9 @@ def fuzz(input_corpus, output_corpus, target_binary):
     os.environ['AFL_ENTRYPOINT'] = target_func
     os.environ['AFL_QEMU_PERSISTENT_CNT'] = "1000000"
     os.environ['AFL_QEMU_DRIVER_NO_HOOK'] = "1"
+
+    print(os.listdir())
+    
     aflplusplus_fuzzer.fuzz(input_corpus,
                             output_corpus,
                             target_binary,
