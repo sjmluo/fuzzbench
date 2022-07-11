@@ -8,7 +8,6 @@ from fuzzers.aflplusplus import fuzzer as aflplusplus_fuzzer
 def build():
     """Build benchmark."""
     aflplusplus_fuzzer.build('qemu')
-    print(os.listdir())
 
     shutil.copy('/afl/afl-fuzz', os.environ['OUT'])
     shutil.copy('/afl/src/RLFuzzing.py', os.environ['OUT'])
@@ -17,6 +16,8 @@ def fuzz(input_corpus, output_corpus, target_binary):
     """Run fuzzer."""
     # Get LLVMFuzzerTestOneInput address.
     subprocess.Popen('python3 ./RLFuzzing.py &', shell=True)
+    print(os.listdir())
+
     nm_proc = subprocess.run([
         'sh', '-c',
         'nm \'' + target_binary + '\' | grep -i \'T afl_qemu_driver_stdin\''
