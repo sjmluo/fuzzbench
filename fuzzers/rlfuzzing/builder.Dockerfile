@@ -42,9 +42,10 @@ RUN wget -O boost_1_79_0.tar.gz https://sourceforge.net/projects/boost/files/boo
 # Build afl++ without Python support as we don't need it.
 # Set AFL_NO_X86 to skip flaky tests.
 RUN cd /afl && \
-    unset CFLAGS && unset CXXFLAGS && export PATH=$PATH:/usr/local/lib/ &&\
-    AFL_NO_X86=1 CC=clang PYTHON_INCLUDE=/ LLVM_CONFIG=llvm-config-12 make RL_FUZZING=1 && \
+    unset CFLAGS && unset CXXFLAGS && LLVM_CONFIG=llvm-config-12 && \
+    AFL_NO_X86=1 CC=clang PYTHON_INCLUDE=/ make RL_FUZZING=1 distrib && make RL_FUZZING=1 install && \
     cd qemu_mode && ./build_qemu_support.sh && cd .. && \
     make -C utils/aflpp_driver && \
     cp utils/aflpp_driver/libAFLQemuDriver.a /libAFLDriver.a && \
     cp utils/aflpp_driver/aflpp_qemu_driver_hook.so /
+
