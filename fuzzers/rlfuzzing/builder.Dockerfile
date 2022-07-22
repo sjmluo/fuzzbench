@@ -18,7 +18,7 @@ FROM $parent_image
 # Install the necessary packages.
 RUN apt-get update && \
     apt-get install -y wget libstdc++-5-dev libtool-bin automake flex bison \
-                       libglib2.0-dev libpixman-1-dev python3-setuptools unzip libboost-all-dev python3-dev
+                       libglib2.0-dev libpixman-1-dev python3-setuptools unzip python3-dev libboost-all-dev
 
 
 
