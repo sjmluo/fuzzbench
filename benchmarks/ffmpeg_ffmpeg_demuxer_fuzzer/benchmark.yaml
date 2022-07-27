@@ -7,6 +7,11 @@ unsupported_fuzzers:
   - aflcc
   - afl_qemu
   - aflplusplus_qemu
+  - rl_fuzzing_none
+  - rl_fuzzing_sample
+  - rl_fuzzing_without_sqrt
+  - rl_fuzzing_with_sqrt
+  - aflhier
   - aflplusplus_qemu_tracepc
   - aflplusplus_zafl
   - aflplusplus_frida
