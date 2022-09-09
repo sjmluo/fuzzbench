@@ -19,16 +19,11 @@ import subprocess
 from fuzzers.aflplusplus import fuzzer as aflplusplus_fuzzer
 
 
-def build():
+def build():  # pylint: disable=too-many-branches,too-many-statements
     """Build benchmark."""
-    aflplusplus_fuzzer.build("tracepc", "cmplog", "dict2file")
+    aflplusplus_fuzzer.build("classic", "cmplog", "dict2file")
 
 
 def fuzz(input_corpus, output_corpus, target_binary):
     """Run fuzzer."""
-    flags = ['-l', '2']
-
-    aflplusplus_fuzzer.fuzz(input_corpus,
-                            output_corpus,
-                            target_binary,
-                            flags=flags)
+    aflplusplus_fuzzer.fuzz(input_corpus, output_corpus, target_binary)
