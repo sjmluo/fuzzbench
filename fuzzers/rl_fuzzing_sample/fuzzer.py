@@ -22,29 +22,105 @@ from fuzzers.aflplusplus import fuzzer as aflplusplus_fuzzer
 
 def build():
     """Build benchmark."""
-    aflplusplus_fuzzer.build("classic", "cmplog", "dict2file")
+    benchmark_name = os.environ['BENCHMARK']
 
+    if benchmark_name == 'bloaty_fuzz_target':
+        aflplusplus_fuzzer.build("lto")
+    elif benchmark_name == 'curl_curl_fuzzer_http':
+        aflplusplus_fuzzer.build("lto")
+    elif benchmark_name == 'freetype2-2017':
+        aflplusplus_fuzzer.build("tracepc", "cmplog", "dict2file")
+    elif benchmark_name == 'harfbuzz-1.3.2':
+        aflplusplus_fuzzer.build("tracepc", "cmplog", "dict2file")
+    elif benchmark_name == 'jsoncpp_jsoncpp_fuzzer':
+        aflplusplus_fuzzer.build("lto", "laf")
+    elif benchmark_name == 'lcms-2017-03-21':
+        aflplusplus_fuzzer.build("tracepc", "cmplog", "dict2file")
+    elif benchmark_name == 'libjpeg-turbo-07-2017':
+        aflplusplus_fuzzer.build("tracepc", "cmplog", "dict2file")
+    elif benchmark_name == 'libxslt_xpath':
+        aflplusplus_fuzzer.build("lto", "cmplog")
+    elif benchmark_name == 'openh264_decoder_fuzzer':
+        aflplusplus_fuzzer.build("lto", "cmplog")
+    elif benchmark_name == 'openssl_x509':
+        aflplusplus_fuzzer.build("tracepc", "dict2file")
+    elif benchmark_name == 'php_php-fuzz-parser':
+        aflplusplus_fuzzer.build("tracepc", "cmplog", "dict2file")
+    elif benchmark_name == 'proj4-2017-08-14':
+        aflplusplus_fuzzer.build("tracepc", "cmplog", "dict2file")
+    elif benchmark_name == 'sqlite3_ossfuzz':
+        aflplusplus_fuzzer.build("tracepc", "cmplog", "dict2file")
+    elif benchmark_name == 'stb_stbi_read_fuzzer':
+        aflplusplus_fuzzer.build("lto", "cmplog")
+    elif benchmark_name == 'systemd_fuzz-link-parser':
+        aflplusplus_fuzzer.build("tracepc", "dict2file")
+    elif benchmark_name == 'vorbis-2017-12-11':
+        aflplusplus_fuzzer.build("lto", "laf")
+    elif benchmark_name == 'woff2-2016-05-06':
+        aflplusplus_fuzzer.build("tracepc", "cmplog", "dict2file")
+    elif benchmark_name == 'zlib_zlib_uncompress_fuzzer':
+        aflplusplus_fuzzer.build("tracepc", "cmplog", "dict2file")
+    else:
+        build_flags = os.environ['CFLAGS']
+        if build_flags.find('array-bounds') != -1:
+            aflplusplus_fuzzer.build("tracepc", "dict2file")
+        else:
+            aflplusplus_fuzzer.build("lto", "cmplog")
 
 def fuzz(input_corpus, output_corpus, target_binary):
     """Run fuzzer."""
-    # Get LLVMFuzzerTestOneInput address.
-    nm_proc = subprocess.run([
-        'sh', '-c',
-        'nm \'' + target_binary + '\' | grep -i \'T afl_qemu_driver_stdin\''
-    ],
-                             stdout=subprocess.PIPE,
-                             check=True)
-    target_func = "0x" + nm_proc.stdout.split()[0].decode("utf-8")
-    print('[fuzz] afl_qemu_driver_stdin_input() address =', target_func)
+    benchmark_name = os.environ['BENCHMARK']
 
-    # Fuzzer options for qemu_mode.
-    flags = ['-c0']
+    run_options = []
 
-    os.environ['AFL_QEMU_PERSISTENT_ADDR'] = target_func
-    os.environ['AFL_ENTRYPOINT'] = target_func
-    os.environ['AFL_QEMU_PERSISTENT_CNT'] = "1000000"
-    os.environ['AFL_QEMU_DRIVER_NO_HOOK'] = "1"
+    if benchmark_name == 'bloaty_fuzz_target':
+        run_options = ['-L', '0']
+        os.environ['AFL_TESTCACHE_SIZE'] = '2'
+    elif benchmark_name == 'curl_curl_fuzzer_http':
+        run_options = ['-L', '-1']
+        os.environ['AFL_KEEP_TIMEOUTS'] = '1'
+    elif benchmark_name == 'freetype2-2017':
+        os.environ['AFL_KEEP_TIMEOUTS'] = '1'
+    elif benchmark_name == 'harfbuzz-1.3.2':
+        os.environ['AFL_KEEP_TIMEOUTS'] = '1'
+    elif benchmark_name == 'libpng-1.2.56':
+        os.environ['AFL_TESTCACHE_SIZE'] = '2'
+        os.environ['AFL_KEEP_TIMEOUTS'] = '1'
+        run_options = ['-l', '2AT']
+    elif benchmark_name == 'libpcap_fuzz_both':
+        os.environ['AFL_TESTCACHE_SIZE'] = '50'
+        run_options = ['-l', '2T']
+    elif benchmark_name == 'libxml2-v2.9.2':
+        os.environ['AFL_TESTCACHE_SIZE'] = '500'
+        run_options = ['-l', '2AT']
+    elif benchmark_name == 'libxslt_xpath':
+        os.environ['AFL_TESTCACHE_SIZE'] = '50'
+        run_options = ['-l', '2AT']
+    elif benchmark_name == 'mbedtls_fuzz_dtlsclient':
+        os.environ['AFL_TESTCACHE_SIZE'] = '50'
+    elif benchmark_name == 'openssl_x509':
+        os.environ['AFL_TESTCACHE_SIZE'] = '500'
+        run_options = ['-l', '2AT', '-L', '0']
+    elif benchmark_name == 'openthread-2019-12-23':
+        os.environ['AFL_TESTCACHE_SIZE'] = '2'
+        os.environ['AFL_KEEP_TIMEOUTS'] = '1'
+        run_options = ['-l', '2A']
+    elif benchmark_name == 'proj4-2017-08-14':
+        os.environ['AFL_KEEP_TIMEOUTS'] = '1'
+    elif benchmark_name == 're2-2014-12-09':
+        os.environ['AFL_TESTCACHE_SIZE'] = '2'
+        run_options = ['-l', '2AT']
+    elif benchmark_name == 'sqlite3_ossfuzz':
+        os.environ['AFL_TESTCACHE_SIZE'] = '500'
+        run_options = ['-l', '2T']
+    elif benchmark_name == 'vorbis-2017-12-11':
+        os.environ['AFL_TESTCACHE_SIZE'] = '50'
+    elif benchmark_name == 'woff2-2016-05-06':
+        os.environ['AFL_TESTCACHE_SIZE'] = '50'
+    else:
+        os.environ['AFL_TESTCACHE_SIZE'] = '2'
+
     aflplusplus_fuzzer.fuzz(input_corpus,
                             output_corpus,
                             target_binary,
-                            flags=flags)
+                            flags=(run_options))
