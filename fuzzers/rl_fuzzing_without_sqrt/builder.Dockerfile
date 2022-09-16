@@ -33,7 +33,7 @@ RUN git clone https://github.com/sjmluo/RLFuzzing.git /afl
 RUN cd /afl && \
     unset CFLAGS && unset CXXFLAGS && \
     AFL_NO_X86=1 CC=clang PYTHON_INCLUDE=/ RL_FUZZING=1 make && \
-    cd qemu_mode && ./build_qemu_support.sh && cd .. && \
+    make install && \
     make -C utils/aflpp_driver && \
     cp utils/aflpp_driver/libAFLQemuDriver.a /libAFLDriver.a && \
-    cp utils/aflpp_driver/aflpp_qemu_driver_hook.so /
+    cp -va `llvm-config --libdir`/libc++* /afl/
