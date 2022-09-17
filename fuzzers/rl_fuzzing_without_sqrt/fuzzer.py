@@ -70,7 +70,7 @@ def fuzz(input_corpus, output_corpus, target_binary):
     # Get LLVMFuzzerTestOneInput address.
     nm_proc = subprocess.run([
         'sh', '-c',
-        'nm \'' + target_binary + '\' | grep -i \'T afl_qemu_driver_stdin\''
+        'nm \'' + target_binary
     ],
                              stdout=subprocess.PIPE,
                              check=True)
