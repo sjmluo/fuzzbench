@@ -35,5 +35,5 @@ RUN cd /afl && \
     AFL_NO_X86=1 CC=clang PYTHON_INCLUDE=/ RL_FUZZING=1 make && \
     make install && \
     make -C utils/aflpp_driver && \
-    cp utils/aflpp_driver/libAFLQemuDriver.a /libAFLDriver.a && \
+    cp utils/aflpp_driver/libAFLDriver.a / && \
     cp -va `llvm-config --libdir`/libc++* /afl/
