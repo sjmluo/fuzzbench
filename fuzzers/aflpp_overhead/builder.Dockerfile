@@ -32,7 +32,7 @@ RUN git clone https://github.com/sjmluo/RLFuzzing.git /afl && cd /afl &&git chec
 # Set AFL_NO_X86 to skip flaky tests.
 RUN cd /afl && \
     unset CFLAGS && unset CXXFLAGS && \
-    AFL_NO_X86=1 CC=clang PYTHON_INCLUDE=/ RL_FUZZING=0 make && \
+    AFL_NO_X86=1 CC=clang PYTHON_INCLUDE=/ RL_FUZZING=0 PY_RL_FUZZING=0 make && \
     cd qemu_mode && ./build_qemu_support.sh && cd .. && \
     make -C utils/aflpp_driver && \
     cp utils/aflpp_driver/libAFLQemuDriver.a /libAFLDriver.a && \
