@@ -24,12 +24,9 @@ RUN apt-get update && \
 RUN cd / && wget https://github.com/ninja-build/ninja/releases/download/v1.10.1/ninja-linux.zip && \
     unzip ninja-linux.zip && chmod 755 ninja && mv ninja /usr/local/bin
 
-# Download and compile afl++ (v2.62d).
-# Build without Python support as we don't need it.
-# Set AFL_NO_X86 to skip flaky tests.
-RUN cd / && git clone https://github.com/google/AFL.git /afl && \
-    cd /afl && \
-    git checkout 8da80951dd7eeeb3e3b5a3bcd36c485045f40274
+# Download afl++
+RUN git clone https://github.com/AFLplusplus/AFLplusplus.git /afl && \
+    cd /afl && git checkout 2a4d77abc69942f3bf102befb50501cf5fc0ea0b
     
 # Build afl++ without Python support as we don't need it.
 # Set AFL_NO_X86 to skip flaky tests.
