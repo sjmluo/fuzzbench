@@ -11,9 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""Integration code for AFL qemu fuzzer."""
-
-# As aflplusplus has the build for qemu already in there we include this.
+"""Integration code for AFLplusplus fuzzer."""
 
 import os
 import subprocess
