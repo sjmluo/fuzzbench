@@ -14,6 +14,10 @@
 """Integration code for AFL qemu fuzzer."""
 
 # As aflplusplus has the build for qemu already in there we include this.
+
+import os
+import subprocess
+
 from fuzzers.aflplusplus import fuzzer as aflplusplus_fuzzer
 
 
