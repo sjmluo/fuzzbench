@@ -15,10 +15,14 @@
 ARG parent_image
 FROM $parent_image
 
-# Install wget to download afl_driver.cpp. Install libstdc++ to use llvm_mode.
+# Install the necessary packages.
 RUN apt-get update && \
-    apt-get install wget libstdc++-5-dev libtool-bin automake -y && \
-    apt-get install flex bison libglib2.0-dev libpixman-1-dev -y
+    apt-get install -y wget libstdc++-5-dev libtool-bin automake flex bison \
+                       libglib2.0-dev libpixman-1-dev python3-setuptools unzip
+
+# Why do some build images have ninja, other not? Weird.
+RUN cd / && wget https://github.com/ninja-build/ninja/releases/download/v1.10.1/ninja-linux.zip && \
+    unzip ninja-linux.zip && chmod 755 ninja && mv ninja /usr/local/bin
 
 # Download and compile afl++ (v2.62d).
 # Build without Python support as we don't need it.
