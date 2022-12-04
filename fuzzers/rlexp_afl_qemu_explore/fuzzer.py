@@ -12,7 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 """Integration code for AFLplusplus fuzzer."""
-mport os
+
+import os
 import subprocess
 
 from fuzzers.aflplusplus import fuzzer as aflplusplus_fuzzer
