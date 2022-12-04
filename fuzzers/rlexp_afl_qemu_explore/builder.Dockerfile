@@ -29,11 +29,10 @@ RUN cd / && wget https://github.com/ninja-build/ninja/releases/download/v1.10.1/
 # Set AFL_NO_X86 to skip flaky tests.
 RUN cd / && git clone https://github.com/google/AFL.git /afl && \
     cd /afl && \
-    git checkout 8da80951dd7eeeb3e3b5a3bcd36c485045f40274 && \
-    AFL_NO_X86=1 make && \
-    unset CFLAGS && unset CXXFLAGS && \
-    cd qemu_mode && ./build_qemu_support.sh
+    git checkout 8da80951dd7eeeb3e3b5a3bcd36c485045f40274
     
+# Build afl++ without Python support as we don't need it.
+# Set AFL_NO_X86 to skip flaky tests.
 RUN cd /afl && \
     unset CFLAGS && unset CXXFLAGS && \
     AFL_NO_X86=1 CC=clang PYTHON_INCLUDE=/ make && \

@@ -12,8 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 """Integration code for AFLplusplus fuzzer."""
-
-import os
+mport os
 import subprocess
 
 from fuzzers.aflplusplus import fuzzer as aflplusplus_fuzzer
@@ -38,9 +37,6 @@ def fuzz(input_corpus, output_corpus, target_binary):
 
     # Fuzzer options for qemu_mode.
     flags = ['-Q', '-c0']
-
-    # Fuzzer options for afl-hier
-    flags = flags + ['-p', 'explore']
 
     os.environ['AFL_QEMU_PERSISTENT_ADDR'] = target_func
     os.environ['AFL_ENTRYPOINT'] = target_func
