@@ -15,23 +15,25 @@
 ARG parent_image
 FROM $parent_image
 
-# Install wget to download afl_driver.cpp. Install libstdc++ to use llvm_mode.
+# Install the necessary packages.
 RUN apt-get update && \
-    apt-get install wget libstdc++-5-dev libtool-bin automake -y && \
-    apt-get install flex bison libglib2.0-dev libpixman-1-dev -y
+    apt-get install -y wget libstdc++-5-dev libtool-bin automake flex bison \
+                       libglib2.0-dev libpixman-1-dev python3-setuptools unzip
 
-# Download and compile afl++ (v2.62d).
-# Build without Python support as we don't need it.
-# Set AFL_NO_X86 to skip flaky tests.
-RUN cd / && git clone https://github.com/google/AFL.git /afl && \
-    cd /afl && \
-    git checkout 8da80951dd7eeeb3e3b5a3bcd36c485045f40274 && \
-    AFL_NO_X86=1 make && \
-    unset CFLAGS && unset CXXFLAGS && \
-    cd qemu_mode && ./build_qemu_support.sh
+# Why do some build images have ninja, other not? Weird.
+RUN cd / && wget https://github.com/ninja-build/ninja/releases/download/v1.10.1/ninja-linux.zip && \
+    unzip ninja-linux.zip && chmod 755 ninja && mv ninja /usr/local/bin
+
+# Download afl++
+RUN git clone https://github.com/AFLplusplus/AFLplusplus.git /afl && \
+    cd /afl && git checkout 2a4d77abc69942f3bf102befb50501cf5fc0ea0b
     
-RUN cd / && git clone https://github.com/vanhauser-thc/qemu_driver && \
-    cd /qemu_driver && \
-    git checkout 8ad9ad589b4881552fa7ef8b7d29cd9aeb5071bd && \
-    make && \
-    cp -fv libQEMU.a /libAFLDriver.a
+# Build afl++ without Python support as we don't need it.
+# Set AFL_NO_X86 to skip flaky tests.
+RUN cd /afl && \
+    unset CFLAGS && unset CXXFLAGS && \
+    AFL_NO_X86=1 CC=clang PYTHON_INCLUDE=/ make && \
+    cd qemu_mode && ./build_qemu_support.sh && cd .. && \
+    make -C utils/aflpp_driver && \
+    cp utils/aflpp_driver/libAFLQemuDriver.a /libAFLDriver.a && \
+    cp utils/aflpp_driver/aflpp_qemu_driver_hook.so /
