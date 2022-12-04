@@ -25,7 +25,7 @@ def build():
 def fuzz(input_corpus, output_corpus, target_binary):
     """Run fuzzer."""
     # Necessary fuzzer options.
-    flags = ['-Q', '-p', 'mmopt']
+    flags = ['-Q', '-c0', '-p', 'mmopt']
     aflplusplus_fuzzer.fuzz(input_corpus,
                             output_corpus,
                             target_binary,
