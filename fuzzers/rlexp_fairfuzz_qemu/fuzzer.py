@@ -13,7 +13,8 @@
 # limitations under the License.
 """Integration code for FairFuzz fuzzer."""
 
-from fuzzers.afl import fuzzer as afl_fuzzer
+
+rom fuzzers.aflplusplus import fuzzer as aflplusplus_fuzzer
 
 
 def build():
@@ -24,9 +25,8 @@ def build():
 def fuzz(input_corpus, output_corpus, target_binary):
     """Run fuzzer."""
     # Necessary fuzzer options.
-    flags = ['-Q', '-c0']
+    flags = ['-Q']
     aflplusplus_fuzzer.fuzz(input_corpus,
                             output_corpus,
                             target_binary,
                             flags=flags)
-    
