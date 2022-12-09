@@ -23,9 +23,8 @@ RUN apt-get update && \
 # Download and compile afl++ (v2.62d).
 # Build without Python support as we don't need it.
 # Set AFL_NO_X86 to skip flaky tests.
-RUN cd / && git clone https://github.com/google/AFL.git /afl && \
+RUN cd / && git clone hhttps://github.com/MoonLight-SteinsGate/EcoFuzz.git /afl && \
     cd /afl && \
-    git checkout 8da80951dd7eeeb3e3b5a3bcd36c485045f40274 && \
     AFL_NO_X86=1 make && \
     unset CFLAGS && unset CXXFLAGS && \
     cd qemu_mode && ./build_qemu_support.sh
