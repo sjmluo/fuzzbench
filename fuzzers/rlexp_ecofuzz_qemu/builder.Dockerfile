@@ -25,7 +25,7 @@ RUN apt-get update && \
 # Set AFL_NO_X86 to skip flaky tests.
 RUN cd / && git clone https://github.com/MoonLight-SteinsGate/EcoFuzz.git /afl && \
     cd /afl && \
-    cd -r ./EcoFuzz/ . && \
+    mv -r ./EcoFuzz/ . && \
     AFL_NO_X86=1 make && \
     unset CFLAGS && unset CXXFLAGS && \
     cd qemu_mode && ./build_qemu_support.sh
