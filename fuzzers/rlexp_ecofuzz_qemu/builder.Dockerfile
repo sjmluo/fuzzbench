@@ -25,7 +25,7 @@ RUN apt-get update && \
 # Set AFL_NO_X86 to skip flaky tests.
 RUN cd / && git clone https://github.com/MoonLight-SteinsGate/EcoFuzz.git /afl && \
     cd /afl && \
-    cp -rp ./EcoFuzz/* . && rm -rf ./EcoFuzz && \
+    cp -rp ./EcoFuzz/* . && rm -rf ./EcoFuzz
 
 RUN cd /afl && \
     unset CFLAGS && unset CXXFLAGS && \
