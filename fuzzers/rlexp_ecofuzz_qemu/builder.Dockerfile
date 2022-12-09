@@ -18,7 +18,7 @@ FROM $parent_image
 # Install wget to download afl_driver.cpp. Install libstdc++ to use llvm_mode.
 RUN apt-get update && \
     apt-get install wget libstdc++-5-dev libtool-bin automake -y && \
-    apt-get install flex bison libglib2.0-dev libpixman-1-dev -y libglib2.0-dev
+    apt-get install flex bison libglib2.0-dev libpixman-1-dev -y
 
 # Download and compile afl++ (v2.62d).
 # Build without Python support as we don't need it.
@@ -29,3 +29,4 @@ RUN cd / && git clone https://github.com/MoonLight-SteinsGate/EcoFuzz.git /afl &
     AFL_NO_X86=1 make && \
     unset CFLAGS && unset CXXFLAGS && \
     cd qemu_mode && ./build_qemu_support.sh
+    
