@@ -26,7 +26,5 @@ RUN apt-get update && \
 RUN cd / && git clone https://github.com/MoonLight-SteinsGate/EcoFuzz.git /afl && \
     cd /afl && \
     cp -rp ./EcoFuzz/* . && \
-    AFL_NO_X86=1 make && \
-    unset CFLAGS && unset CXXFLAGS && \
     cd qemu_mode && ./build_qemu_support.sh
-    
+
