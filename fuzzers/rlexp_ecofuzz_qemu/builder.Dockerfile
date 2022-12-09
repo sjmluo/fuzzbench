@@ -29,6 +29,7 @@ RUN cd / && git clone https://github.com/MoonLight-SteinsGate/EcoFuzz.git /afl &
 
 RUN cd /afl && \
     unset CFLAGS && unset CXXFLAGS && \
+    ./configure --disable-shared && \
     AFL_NO_X86=1 CC=clang PYTHON_INCLUDE=/ make && \
     cd qemu_mode && ./build_qemu_support.sh && cd .. && \
     make -C utils/aflpp_driver && \
