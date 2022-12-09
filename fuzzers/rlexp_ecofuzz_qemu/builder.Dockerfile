@@ -26,12 +26,11 @@ RUN apt-get update && \
 RUN cd / && git clone https://github.com/MoonLight-SteinsGate/EcoFuzz.git /afl && \
     cd /afl && \
     cp -rp ./EcoFuzz/* . && rm -rf ./EcoFuzz && \
-    AFL_NO_X86=1 make && \
+
+RUN cd /afl && \
     unset CFLAGS && unset CXXFLAGS && \
-    cd qemu_mode && ./build_qemu_support.sh
-    
-RUN cd / && git clone https://github.com/vanhauser-thc/qemu_driver && \
-    cd /qemu_driver && \
-    git checkout 8ad9ad589b4881552fa7ef8b7d29cd9aeb5071bd && \
-    make && \
-    cp -fv libQEMU.a /libAFLDriver.a
+    AFL_NO_X86=1 CC=clang PYTHON_INCLUDE=/ make && \
+    cd qemu_mode && ./build_qemu_support.sh && cd .. && \
+    make -C utils/aflpp_driver && \
+    cp utils/aflpp_driver/libAFLQemuDriver.a /libAFLDriver.a && \
+    cp utils/aflpp_driver/aflpp_qemu_driver_hook.so /
