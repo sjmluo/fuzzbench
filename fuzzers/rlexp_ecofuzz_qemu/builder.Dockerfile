@@ -23,7 +23,7 @@ RUN apt-get update && \
 # Download and compile afl++ (v2.62d).
 # Build without Python support as we don't need it.
 # Set AFL_NO_X86 to skip flaky tests.
-RUN cd / && git clone hhttps://github.com/MoonLight-SteinsGate/EcoFuzz.git /afl && \
+RUN cd / && git clone https://github.com/MoonLight-SteinsGate/EcoFuzz.git /afl && \
     cd /afl && \
     AFL_NO_X86=1 make && \
     unset CFLAGS && unset CXXFLAGS && \
