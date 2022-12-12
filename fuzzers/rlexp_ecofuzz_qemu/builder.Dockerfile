@@ -24,8 +24,7 @@ RUN apt-get update && \
 # Build without Python support as we don't need it.
 # Set AFL_NO_X86 to skip flaky tests.
 RUN cd / && git clone https://github.com/MoonLight-SteinsGate/EcoFuzz.git /afl && \
-    cd /afl && \
-    cp -rp ./EcoFuzz/* . && rm -rf ./EcoFuzz && \
+    cd /afl/EcoFuzz/ && \
     AFL_NO_X86=1 make all && \
     unset CFLAGS && unset CXXFLAGS && \
     cd qemu_mode && ./build_qemu_support.sh
