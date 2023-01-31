@@ -23,6 +23,7 @@ RUN wget https://download.docker.com/linux/static/stable/x86_64/docker-${DOCKER_
 WORKDIR /fuzzbench
 
 COPY requirements.txt requirements.txt
+RUN pip3 install --upgrade pip
 RUN pip3 install -r requirements.txt
 
 COPY alembic.ini alembic.ini
