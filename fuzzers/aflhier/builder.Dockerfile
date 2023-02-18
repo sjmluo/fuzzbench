@@ -25,7 +25,9 @@ RUN cd / && wget https://github.com/ninja-build/ninja/releases/download/v1.10.1/
     unzip ninja-linux.zip && chmod 755 ninja && mv ninja /usr/local/bin
 
 # Download aflhier
-RUN cd / && git clone https://github.com/bitsecurerlab/aflplusplus-hier.git /afl
+# RUN cd / && git clone https://github.com/bitsecurerlab/aflplusplus-hier.git /afl
+# It says QEMU download has temporarily moved to a new location. If the download doesn't work, try the old link again.
+RUN cd / && git clone https://github.com/sjmluo/aflhier_qemu_fix.git /afl
 
 # Build afl++ without Python support as we don't need it.
 # Set AFL_NO_X86 to skip flaky tests.
