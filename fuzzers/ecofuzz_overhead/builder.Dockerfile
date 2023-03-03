@@ -21,7 +21,7 @@ RUN apt-get update && \
     apt-get install flex bison libglib2.0-dev libpixman-1-dev -y
 
 # Set AFL_NO_X86 to skip flaky tests.
-RUN cd / && git clone https://github.com/sjmluo/EcoFuzz-Overhead.git /afl && \
+RUN cd / && git clone https://github.com/icse2024-t-scheduler/EcoFuzz-Overhead.git /afl && \
     cd /afl/ && \
     mv EcoFuzz/* . && \
     rmdir EcoFuzz && \

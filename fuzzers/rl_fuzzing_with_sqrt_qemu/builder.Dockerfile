@@ -26,7 +26,7 @@ RUN cd / && wget https://github.com/ninja-build/ninja/releases/download/v1.10.1/
     unzip ninja-linux.zip && chmod 755 ninja && mv ninja /usr/local/bin
 
 # Download afl++
-RUN git clone https://github.com/sjmluo/RLFuzzing.git /afl
+RUN git clone https://github.com/icse2024-t-scheduler/t-scheduler.git /afl
     
 # Build afl++ without Python support as we don't need it.
 # Set AFL_NO_X86 to skip flaky tests.

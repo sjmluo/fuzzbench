@@ -25,7 +25,7 @@ RUN cd / && wget https://github.com/ninja-build/ninja/releases/download/v1.10.1/
     unzip ninja-linux.zip && chmod 755 ninja && mv ninja /usr/local/bin
 
 # Download aflhier
-RUN cd / && git clone https://github.com/sjmluo/aflplusplus-hier-overhead.git /afl
+RUN cd / && git clone https://github.com/icse2024-t-scheduler/aflplusplus-hier-overhead.git /afl
 
 # Build afl++ without Python support as we don't need it.
 # Set AFL_NO_X86 to skip flaky tests.
